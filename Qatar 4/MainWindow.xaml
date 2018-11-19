@@ -1,0 +1,128 @@
+﻿<Window x:Class="Qatar_4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Qatar_4"
+        mc:Ignorable="d"
+        Title="The Game" Height="200" Width="400">
+    <!--Main grid-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="120"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Menu bar-->
+        <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+            <MenuItem Header="File"/>
+            <MenuItem Header="New"/>
+            <MenuItem Header="View"/>
+            <MenuItem Header="Help"/>
+        </Menu>
+
+        <!--Left column-->
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Left column up-->
+            <StackPanel Grid.Row="0"
+                        Background="AntiqueWhite">
+                <Label>Info</Label>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" 
+                           Content="Name:"/>
+                    <Label Grid.Row="0" Grid.Column="1" 
+                           Content="{Binding CurrentPlayer.Name}"/>
+                </Grid>
+            </StackPanel>
+
+            <!--Left column down-->
+            <StackPanel Grid.Row="1"
+                        Background="Azure">
+                <Label>News</Label>
+            </StackPanel>
+        </Grid>
+
+        <!--Canvas-->
+        <StackPanel Grid.Row="1" Grid.Column="1"
+                    Background="Beige">
+            <Canvas>
+                <Ellipse 
+                    Canvas.Left="{Binding CurrentStation.PosX}"
+                    Canvas.Top="{Binding CurrentStation.PosY}"
+                    Width="{Binding CurrentStation.Radius}"
+                    Height="{Binding CurrentStation.Radius}"
+                      StrokeThickness="2"
+                      Stroke="Black"
+                    Fill="White">
+                </Ellipse>
+
+                <Ellipse 
+                    Canvas.Left="{Binding CurrentTrain.PosX}"
+                    Canvas.Top="{Binding CurrentTrain.PosY}"
+                    Width="10"
+                    Height="10"
+                      StrokeThickness="2"
+                      Stroke="Black"
+                    Fill="Red">
+                </Ellipse>
+
+            </Canvas>
+        </StackPanel>
+
+        <!--Right column-->
+        <Grid Grid.Row="1" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Right column up-->
+            <StackPanel Grid.Row="0"
+                        Background="AntiqueWhite">
+                <Label>Tools</Label>
+            </StackPanel>
+
+            <!--Right column down-->
+            <StackPanel Grid.Row="1"
+                        Background="Azure">
+                <Label>Tools</Label>
+            </StackPanel>
+        </Grid>
+
+        <!--Bottom bar-->
+        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                    Orientation="Horizontal"
+                    Background="Bisque">
+            <Label>Something</Label>
+        </StackPanel>
+    </Grid>
+</Window>

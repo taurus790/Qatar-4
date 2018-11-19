@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qatar 4", "Qatar 4\Qatar 4.csproj", "{B52AC672-F9C2-409E-876E-75108C2C27F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csproj", "{D6EFD834-2251-4A56-BFDD-F21DE84165DC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B52AC672-F9C2-409E-876E-75108C2C27F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B52AC672-F9C2-409E-876E-75108C2C27F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B52AC672-F9C2-409E-876E-75108C2C27F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B52AC672-F9C2-409E-876E-75108C2C27F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6EFD834-2251-4A56-BFDD-F21DE84165DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6EFD834-2251-4A56-BFDD-F21DE84165DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6EFD834-2251-4A56-BFDD-F21DE84165DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6EFD834-2251-4A56-BFDD-F21DE84165DC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {30F3BF68-E9AF-43EA-AD97-2878DEADB21D}
+	EndGlobalSection
+EndGlobal
