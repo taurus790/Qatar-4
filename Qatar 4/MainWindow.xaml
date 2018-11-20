@@ -73,19 +73,18 @@
 
             <Canvas x:Name="Map">
 
-                <Canvas.Resources>
-                    <Style TargetType="{x:Type Ellipse}">
-                        <Setter Property="Canvas.Left" Value="{Binding CurrentStation.PosX}"/>
-                        <Setter Property="Canvas.Top" Value="{Binding CurrentStation.PosY}"/>
-                        <Setter Property="Width" Value="{Binding Width}"/>
-                        <Setter Property="Height" Value="{Binding Height}"/>
-                        <Setter Property="StrokeThickness" Value="{Binding StrokeThickness}"/>
-                        <Setter Property="Stroke" Value="{Binding Stroke}"/>
-                        <Setter Property="Fill" Value="{Binding Fill}"/>
-                    </Style>
-                </Canvas.Resources>
-
-            </Canvas>
+                    <Canvas.Resources>
+                        <Style TargetType="{x:Type Ellipse}">
+                            <Setter Property="Canvas.Left" Value="{Binding CurrentStation.PosX}"/>
+                            <Setter Property="Canvas.Top" Value="{Binding CurrentStation.PosY}"/>
+                            <Setter Property="Width" Value="{Binding Width}"/>
+                            <Setter Property="Height" Value="{Binding Height}"/>
+                            <Setter Property="StrokeThickness" Value="{Binding StrokeThickness}"/>
+                            <Setter Property="Stroke" Value="{Binding Stroke}"/>
+                            <Setter Property="Fill" Value="{Binding Fill}"/>
+                        </Style>
+                    </Canvas.Resources>
+                </Canvas>
         </StackPanel>
 
         <!--Right column-->
