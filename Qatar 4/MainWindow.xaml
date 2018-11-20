@@ -70,26 +70,20 @@
         <!--Canvas-->
         <StackPanel Grid.Row="1" Grid.Column="1"
                     Background="Beige">
-            <Canvas>
-                <Ellipse 
-                    Canvas.Left="{Binding CurrentStation.PosX}"
-                    Canvas.Top="{Binding CurrentStation.PosY}"
-                    Width="{Binding CurrentStation.Radius}"
-                    Height="{Binding CurrentStation.Radius}"
-                      StrokeThickness="2"
-                      Stroke="Black"
-                    Fill="White">
-                </Ellipse>
 
-                <Ellipse 
-                    Canvas.Left="{Binding CurrentTrain.PosX}"
-                    Canvas.Top="{Binding CurrentTrain.PosY}"
-                    Width="10"
-                    Height="10"
-                      StrokeThickness="2"
-                      Stroke="Black"
-                    Fill="Red">
-                </Ellipse>
+            <Canvas x:Name="Map">
+
+                <Canvas.Resources>
+                    <Style TargetType="{x:Type Ellipse}">
+                        <Setter Property="Canvas.Left" Value="{Binding CurrentStation.PosX}"/>
+                        <Setter Property="Canvas.Top" Value="{Binding CurrentStation.PosY}"/>
+                        <Setter Property="Width" Value="{Binding Width}"/>
+                        <Setter Property="Height" Value="{Binding Height}"/>
+                        <Setter Property="StrokeThickness" Value="{Binding StrokeThickness}"/>
+                        <Setter Property="Stroke" Value="{Binding Stroke}"/>
+                        <Setter Property="Fill" Value="{Binding Fill}"/>
+                    </Style>
+                </Canvas.Resources>
 
             </Canvas>
         </StackPanel>
@@ -112,10 +106,26 @@
             </StackPanel>
 
             <!--Right column down-->
-            <StackPanel Grid.Row="1"
-                        Background="Azure">
-                <Label>Tools</Label>
-            </StackPanel>
+            <Grid Grid.Row="1" 
+                  Background="Azure">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Row="0" Grid.Column="1" Click="Button_Click"></Button>
+                <Button Grid.Row="1" Grid.Column="0" Click="Button_Click_1"></Button>
+                <Button Grid.Row="1" Grid.Column="2" Click="Button_Click_2"></Button>
+                <Button Grid.Row="2" Grid.Column="1" Click="Button_Click_3"></Button>
+
+            </Grid>
         </Grid>
 
         <!--Bottom bar-->
