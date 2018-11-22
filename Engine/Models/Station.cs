@@ -9,7 +9,16 @@ namespace Engine.Models
 {
     public class Station : INotifyPropertyChanged
     {
+        #region Private attributes
+
         private int _PosX;
+        private int _PosY;
+        private int _Radius;
+
+        #endregion
+
+        #region Public properties
+
         public int PosX
         {
             get { return _PosX; }
@@ -20,7 +29,6 @@ namespace Engine.Models
             }
         }
 
-        private int _PosY;
         public int PosY
         {
             get { return _PosY; }
@@ -29,8 +37,6 @@ namespace Engine.Models
             }
         }
 
-        private int _Radius;
-
         public int Radius
         {
             get { return _Radius; }
@@ -38,6 +44,8 @@ namespace Engine.Models
                 OnPropertyChanged(nameof(Radius));
             }
         }
+
+        #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
 
