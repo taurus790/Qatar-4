@@ -11,7 +11,6 @@ namespace Engine.Models
     {
         #region Private attributes
 
-        private string _Name;
         private int _PosX;
         private int _PosY;
         private int _Radius;
@@ -19,17 +18,6 @@ namespace Engine.Models
         #endregion
 
         #region Public properties
-
-        public string Name
-        {
-            get { return _Name; }
-            set
-            {
-                _Name = value;
-                OnPropertyChanged(nameof(Name));
-            }
-        }
-
 
         public int PosX
         {
@@ -44,9 +32,7 @@ namespace Engine.Models
         public int PosY
         {
             get { return _PosY; }
-            set
-            {
-                _PosY = value;
+            set { _PosY = value;
                 OnPropertyChanged(nameof(PosY));
             }
         }
@@ -54,9 +40,7 @@ namespace Engine.Models
         public int Radius
         {
             get { return _Radius; }
-            set
-            {
-                _Radius = value;
+            set { _Radius = value;
                 OnPropertyChanged(nameof(Radius));
             }
         }
