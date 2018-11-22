@@ -34,7 +34,8 @@ namespace Engine.ViewModels
         public GameSession()
         {
             CurrentPlayer = new Player();
-            CurrentPlayer.Name = "Scott";
+            CurrentPlayer.Name = "Taurus790";
+            CurrentPlayer.ImageSrc = "/Engine;component/Images/Player/pic1.png";
 
             CurrentStation = new Station();
             CurrentStation.PosX = 15;
