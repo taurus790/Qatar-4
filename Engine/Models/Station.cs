@@ -9,11 +9,12 @@ namespace Engine.Models
 {
     public class Station : INotifyPropertyChanged
     {
-        #region Private attributes
+        #region Private attributes 
 
+        private string _Name;
         private int _PosX;
         private int _PosY;
-        private int _Radius;
+        private int _Level;
 
         #endregion
 
@@ -32,20 +33,25 @@ namespace Engine.Models
         public int PosY
         {
             get { return _PosY; }
-            set { _PosY = value;
+            set
+            {
+                _PosY = value;
                 OnPropertyChanged(nameof(PosY));
             }
         }
 
-        public int Radius
+        public int Level
         {
-            get { return _Radius; }
-            set { _Radius = value;
-                OnPropertyChanged(nameof(Radius));
+            get { return _Level; }
+            set
+            {
+                _Level = value;
+                OnPropertyChanged(nameof(Level));
             }
         }
 
         #endregion
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

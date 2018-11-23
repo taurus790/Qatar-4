@@ -34,8 +34,8 @@ namespace Qatar_4
 
             Ellipse e1 = new Ellipse
             {
-                Width = _gameSession.CurrentStation.Radius,
-                Height = _gameSession.CurrentStation.Radius,
+                Width = _gameSession.CurrentStation.Level,
+                Height = _gameSession.CurrentStation.Level,
                 StrokeThickness = 2,
                 Stroke = new SolidColorBrush(Colors.Black),
                 Fill = new SolidColorBrush(Colors.Pink)

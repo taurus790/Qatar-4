@@ -40,7 +40,7 @@ namespace Engine.ViewModels
             CurrentStation = new Station();
             CurrentStation.PosX = 15;
             CurrentStation.PosY = 15;
-            CurrentStation.Radius = 15;
+            CurrentStation.Level = 15;
 
             CurrentTrain = new Train();
             CurrentTrain.PosX = 35;
