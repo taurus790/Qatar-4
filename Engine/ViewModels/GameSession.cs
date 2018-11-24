@@ -35,7 +35,8 @@ namespace Engine.ViewModels
         {
             CurrentPlayer = new Player();
             CurrentPlayer.Name = "Taurus790";
-            CurrentPlayer.ImageSrc = "/Engine;component/Images/Player/pic1.png";
+            CurrentPlayer.ImageSrc = "/Engine;component/Images/Player/pic1.jpg";
+            CurrentPlayer.Money = 1000000;
 
             CurrentStation = new Station();
             CurrentStation.PosX = 15;

@@ -48,7 +48,7 @@
     <Compile Include="ViewModels\GameSession.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Player\pic1.png" />
+    <Resource Include="Images\Player\pic1.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

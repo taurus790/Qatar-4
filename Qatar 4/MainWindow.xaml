@@ -15,9 +15,9 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="Auto" MaxWidth="250px" MinWidth="100px"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="Auto" MaxWidth="250px" MinWidth="100px"/>
         </Grid.ColumnDefinitions>
 
         <!--Menu bar-->
@@ -56,6 +56,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                           Width="70"
                            Source="{Binding CurrentPlayer.ImageSrc}"/>
 
                     <Label Grid.Row="1" Grid.Column="0" 
