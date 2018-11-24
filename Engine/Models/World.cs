@@ -10,8 +10,15 @@ namespace Engine.Models
 {
     public class World : INotifyPropertyChanged
     {
+        #region Private attributes
+
         private List<Station> _Stations = new List<Station>();
-        private ObservableCollection<Station> _StationsObsColc = new ObservableCollection<Station>();
+
+        private ObservableCollection<Station> _EntitiesOnMap = new ObservableCollection<Station>();
+
+        #endregion
+
+        #region Public properties
 
         public List<Station> Stations
         {
@@ -23,25 +30,25 @@ namespace Engine.Models
             }
         }
 
-        public ObservableCollection<Station> StationsObsColc
+        public ObservableCollection<Station> EntitiesOnMap
         {
-            get { return _StationsObsColc; }
+            get { return _EntitiesOnMap; }
             set
             {
-                _StationsObsColc = value;
-                OnPropertyChanged(nameof(StationsObsColc));
+                _EntitiesOnMap = value;
+                OnPropertyChanged(nameof(EntitiesOnMap));
             }
         }
 
+        #endregion
 
         internal void AddStation(int id, string name, int posX, int posY, int level)
         {
             Station station = new Station(id, name, posX, posY, level);
 
             Stations.Add(station);
-            StationsObsColc=new ObservableCollection<Station>(Stations);
+            EntitiesOnMap.Add(station);
         }
-
 
         public Station StationWithID(int id)
         {
@@ -52,7 +59,6 @@ namespace Engine.Models
                     return station;
                 }
             }
-
             return null;
         }
 

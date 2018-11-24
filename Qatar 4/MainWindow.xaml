@@ -97,7 +97,7 @@
         <Grid Grid.Row="1" Grid.Column="1"
                     Background="Beige">
             <Border BorderBrush="Gainsboro" BorderThickness="2">
-                <ItemsControl ItemsSource="{Binding CurrentWorld.StationsObsColc}">
+                <ItemsControl ItemsSource="{Binding CurrentWorld.EntitiesOnMap}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <Canvas/>

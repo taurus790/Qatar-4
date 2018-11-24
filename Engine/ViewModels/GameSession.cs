@@ -6,18 +6,62 @@ using System.Text;
 using System.Threading.Tasks;
 using Engine.Factories;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Engine.ViewModels
 {
-    public class GameSession
+    public class GameSession : INotifyPropertyChanged
     {
         #region Public properties
 
-        public World CurrentWorld { get; set; }
-        public Player CurrentPlayer { get; set; }
-        public Station CurrentStation { get; set; }
-        public Train CurrentTrain { get; set; }
-        public ObservableCollection<Station> Colc { get; set; }
+        private World _CurrentWorld;
+        private Player _CurrentPlayer;
+        private Station _CurrentStation;
+        private Train _CurrentTrain;
+
+        #endregion
+
+        #region Public properties 
+
+        public World CurrentWorld
+        {
+            get { return _CurrentWorld; }
+            set
+            {
+                _CurrentWorld = value;
+                OnPropertyChanged(nameof(CurrentWorld));
+            }
+        }
+
+        public Player CurrentPlayer
+        {
+            get { return _CurrentPlayer; }
+            set
+            {
+                _CurrentPlayer = value;
+                OnPropertyChanged(nameof(CurrentPlayer));
+            }
+        }
+
+        public Station CurrentStation
+        {
+            get { return _CurrentStation; }
+            set
+            {
+                _CurrentStation = value;
+                OnPropertyChanged(nameof(CurrentStation));
+            }
+        }
+
+        public Train CurrentTrain
+        {
+            get { return _CurrentTrain; }
+            set
+            {
+                _CurrentTrain = value;
+                OnPropertyChanged(nameof(CurrentTrain));
+            }
+        }
 
         #endregion
 
@@ -30,21 +74,19 @@ namespace Engine.ViewModels
 
             CurrentStation = CurrentWorld.StationWithID(1);
 
-
-            Colc = new ObservableCollection<Station>(
-                                CurrentWorld.Stations.Select(c => new Station(c.ID, c.Name, c.PosX, c.PosY, c.Level)));
-
             CurrentPlayer = new Player();
             CurrentPlayer.Name = "Taurus790";
             CurrentPlayer.ImageSrc = "/Engine;component/Images/Player/pic1.jpg";
             CurrentPlayer.Money = 1000000;
-
-            CurrentTrain = new Train();
-            CurrentTrain.PosX = 35;
-            CurrentTrain.PosY = 15;
         }
 
         #endregion
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
