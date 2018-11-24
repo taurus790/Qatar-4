@@ -5,7 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Qatar_4"
         mc:Ignorable="d"
-        Title="The Game" Height="200" Width="400">
+        Title="The Game" 
+        MinWidth="300" MinHeight="200"
+        SizeToContent="WidthAndHeight">
+
+    <!--Stlye for Ellipses i.e. Stations-->
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+
     <!--Main grid-->
     <Grid>
         <Grid.RowDefinitions>
@@ -15,9 +29,9 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="Auto" MaxWidth="250px" MinWidth="100px"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="Auto" MaxWidth="250px" MinWidth="100px"/>
         </Grid.ColumnDefinitions>
 
         <!--Menu bar-->
@@ -31,7 +45,7 @@
         <!--Left column-->
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
@@ -40,25 +54,37 @@
             </Grid.ColumnDefinitions>
 
             <!--Left column up-->
-            <StackPanel Grid.Row="0"
-                        Background="AntiqueWhite">
-                <Label>Info</Label>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Background="AntiqueWhite">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto" MinWidth="10"/>
+                </Grid.ColumnDefinitions>
 
-                    <Label Grid.Row="0" Grid.Column="0" 
+                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                    Info
+                </Label>
+
+                <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                       MaxWidth="60" MaxHeight="80"
+                           Source="{Binding CurrentPlayer.ImageSrc}"/>
+
+                <Label Grid.Row="2" Grid.Column="0" 
                            Content="Name:"/>
-                    <Label Grid.Row="0" Grid.Column="1" 
-                           Content="{Binding CurrentPlayer.Name}"/>
-                </Grid>
-            </StackPanel>
+                <TextBlock Grid.Row="2" Grid.Column="1" 
+                           Text="{Binding CurrentPlayer.Name}"/>
+
+                <Label Grid.Row="3" Grid.Column="0" 
+                           Content="Money:"/>
+                <TextBlock Grid.Row="3" Grid.Column="1"
+                           Text="{Binding CurrentPlayer.Money}"/>
+            </Grid>
 
             <!--Left column down-->
             <StackPanel Grid.Row="1"
@@ -68,31 +94,38 @@
         </Grid>
 
         <!--Map Canvas-->
-        <StackPanel Grid.Row="1" Grid.Column="1"
+        <Grid Grid.Row="1" Grid.Column="1"
                     Background="Beige">
-
-            <Canvas x:Name="Map">
-
-                <!--Stlye for Ellipses i.e. Stations-->
-                <Canvas.Resources>
-                    <Style TargetType="{x:Type Ellipse}">
-                        <Setter Property="Canvas.Left" Value="{Binding CurrentStation.PosX}"/>
-                        <Setter Property="Canvas.Top" Value="{Binding CurrentStation.PosY}"/>
-                        <Setter Property="Width" Value="{Binding Width}"/>
-                        <Setter Property="Height" Value="{Binding Height}"/>
-                        <Setter Property="StrokeThickness" Value="{Binding StrokeThickness}"/>
-                        <Setter Property="Stroke" Value="{Binding Stroke}"/>
-                        <Setter Property="Fill" Value="{Binding Fill}"/>
-                    </Style>
-                </Canvas.Resources>
-
-            </Canvas>
-        </StackPanel>
+            <Border BorderBrush="Gainsboro" BorderThickness="2">
+                <ItemsControl ItemsSource="{Binding CurrentWorld.EntitiesOnMap}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    
+                    <ItemsControl.ItemContainerStyle>
+                        <Style>
+                            <Setter Property="Canvas.Left" Value="{Binding PosX}"/>
+                            <Setter Property="Canvas.Top" Value="{Binding PosY}"/>
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                    
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Ellipse Width="{Binding Level}" Height="{Binding Level}"
+                                     StrokeThickness="2" Stroke="Black" Fill="White">
+                            </Ellipse>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
+        </Grid>
 
         <!--Right column-->
         <Grid Grid.Row="1" Grid.Column="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
@@ -101,18 +134,49 @@
             </Grid.ColumnDefinitions>
 
             <!--Right column up-->
-            <StackPanel Grid.Row="0"
+            <Grid Grid.Row="0"
                         Background="AntiqueWhite">
-                <Label>Tools</Label>
-            </StackPanel>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                    Current Station
+                </Label>
+
+                <Label Grid.Row="1" Grid.Column="0" Content="ID:"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding CurrentStation.ID}"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Content="Name:"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding CurrentStation.Name}"/>
+
+                <Label Grid.Row="3" Grid.Column="0" Content="Position:"/>
+                <TextBlock Grid.Row="3" Grid.Column="1">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0}; {1}">
+                            <Binding Path="CurrentStation.PosX"/>
+                            <Binding Path="CurrentStation.PosY"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </Grid>
 
             <!--Right column down-->
             <Grid Grid.Row="1" 
                   Background="Azure">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -121,10 +185,11 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Row="0" Grid.Column="1" Click="Button_Click"></Button>
-                <Button Grid.Row="1" Grid.Column="0" Click="Button_Click_1"></Button>
-                <Button Grid.Row="1" Grid.Column="2" Click="Button_Click_2"></Button>
-                <Button Grid.Row="2" Grid.Column="1" Click="Button_Click_3"></Button>
+                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">Tools</Label>
+                <Button Grid.Row="1" Grid.Column="1" Click="Button_Click">U</Button>
+                <Button Grid.Row="2" Grid.Column="0" Click="Button_Click_1">L</Button>
+                <Button Grid.Row="2" Grid.Column="2" Click="Button_Click_2">R</Button>
+                <Button Grid.Row="3" Grid.Column="1" Click="Button_Click_3">D</Button>
 
             </Grid>
         </Grid>

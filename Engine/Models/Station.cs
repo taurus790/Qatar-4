@@ -9,7 +9,38 @@ namespace Engine.Models
 {
     public class Station : INotifyPropertyChanged
     {
+        #region Private attributes 
+
+        private string _Name;
+        private int _ID;
         private int _PosX;
+        private int _PosY;
+        private int _Level;
+
+        #endregion
+
+        #region Public properties
+
+        public string Name
+        {
+            get { return _Name; }
+            set
+            {
+                _Name = value;
+                OnPropertyChanged(nameof(Name));
+            }
+        }
+
+        public int ID
+        {
+            get { return _ID; }
+            set
+            {
+                _ID = value;
+                OnPropertyChanged(nameof(ID));
+            }
+        }
+
         public int PosX
         {
             get { return _PosX; }
@@ -20,24 +51,40 @@ namespace Engine.Models
             }
         }
 
-        private int _PosY;
         public int PosY
         {
             get { return _PosY; }
-            set { _PosY = value;
+            set
+            {
+                _PosY = value;
                 OnPropertyChanged(nameof(PosY));
             }
         }
 
-        private int _Radius;
-
-        public int Radius
+        public int Level
         {
-            get { return _Radius; }
-            set { _Radius = value;
-                OnPropertyChanged(nameof(Radius));
+            get { return _Level; }
+            set
+            {
+                _Level = value;
+                OnPropertyChanged(nameof(Level));
             }
         }
+
+        #endregion
+
+        #region Construction 
+
+        public Station(int id, string name, int posX, int posY, int level)
+        {
+            ID = id;
+            Name = name;
+            PosX = posX;
+            PosY = posY;
+            Level = level;
+        }
+
+        #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -26,32 +26,16 @@ namespace Qatar_4
         public MainWindow()
         {
             InitializeComponent();
-            Width = 800;
-            Height = 600;
 
             _gameSession = new GameSession();
             DataContext = _gameSession;
 
-            Ellipse e1 = new Ellipse
+            //Sets Windows min size to its content
+            /*SourceInitialized += (s, e) =>
             {
-                Width = _gameSession.CurrentStation.Radius,
-                Height = _gameSession.CurrentStation.Radius,
-                StrokeThickness = 2,
-                Stroke = new SolidColorBrush(Colors.Black),
-                Fill = new SolidColorBrush(Colors.Pink)
-            };
-
-            Ellipse e2 = new Ellipse
-            {
-                Width = 5,
-                Height = 10,
-                StrokeThickness = 2,
-                Stroke = new SolidColorBrush(Colors.Blue),
-                Fill = new SolidColorBrush(Colors.Yellow)
-            };
-
-            Map.Children.Add(e1);
-            Map.Children.Add(e2);
+                MinWidth = ActualWidth;
+                MinHeight = ActualHeight;
+            };*/
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -61,11 +45,13 @@ namespace Qatar_4
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            _gameSession.CurrentStation = _gameSession.CurrentWorld.StationWithID(_gameSession.CurrentStation.ID - 1);
             _gameSession.CurrentStation.PosX -= 15;
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
+            _gameSession.CurrentStation = _gameSession.CurrentWorld.StationWithID(_gameSession.CurrentStation.ID + 1);
             _gameSession.CurrentStation.PosX += 10;
         }
 

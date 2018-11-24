@@ -9,8 +9,15 @@ namespace Engine.Models
 {
     public class Train : INotifyPropertyChanged
     {
+        #region Private attributes
 
         private int _PosX;
+        private int _PosY;
+
+        #endregion
+
+        #region Public properties
+
         public int PosX
         {
             get { return _PosX; }
@@ -21,7 +28,6 @@ namespace Engine.Models
             }
         }
 
-        private int _PosY;
         public int PosY
         {
             get { return _PosY; }
@@ -53,6 +59,8 @@ namespace Engine.Models
                 OnPropertyChanged(nameof(VelY));
             }
         }
+
+        #endregion
 
 
         public event PropertyChangedEventHandler PropertyChanged;
