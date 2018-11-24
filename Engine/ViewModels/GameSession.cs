@@ -4,48 +4,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Engine.Factories;
 
 namespace Engine.ViewModels
 {
     public class GameSession
     {
-        private Player _CurrentPlayer;
-        public Player CurrentPlayer
-        {
-            get { return _CurrentPlayer; }
-            set { _CurrentPlayer = value; }
-        }
+        #region Public properties
 
-        private Station _CurrentStation;
-        public Station CurrentStation
-        {
-            get { return _CurrentStation; }
-            set { _CurrentStation = value; }
-        }
+        public World CurrentWorld { get; set; }
+        public Player CurrentPlayer { get; set; }
+        public Station CurrentStation { get; set; }
+        public Train CurrentTrain { get; set; }
 
-        private Train _CurrentTrain;
+        #endregion
 
-        public Train CurrentTrain
-        {
-            get { return _CurrentTrain; }
-            set { _CurrentTrain = value; }
-        }
-        
+        #region Constructor
+
         public GameSession()
         {
+            WorldFactory factory = new WorldFactory();
+            CurrentWorld = factory.CreateWorld();
+
+            CurrentStation = CurrentWorld.StationWithID(1);
+
             CurrentPlayer = new Player();
             CurrentPlayer.Name = "Taurus790";
             CurrentPlayer.ImageSrc = "/Engine;component/Images/Player/pic1.jpg";
             CurrentPlayer.Money = 1000000;
 
-            CurrentStation = new Station();
-            CurrentStation.PosX = 15;
-            CurrentStation.PosY = 15;
-            CurrentStation.Level = 15;
-
             CurrentTrain = new Train();
             CurrentTrain.PosX = 35;
             CurrentTrain.PosY = 15;
         }
+
+        #endregion
+
     }
 }

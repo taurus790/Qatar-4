@@ -26,8 +26,13 @@ namespace Qatar_4
         public MainWindow()
         {
             InitializeComponent();
-            Width = 800;
-            Height = 600;
+
+            //Sets Windows min size to its content
+            /*SourceInitialized += (s, e) =>
+            {
+                MinWidth = ActualWidth;
+                MinHeight = ActualHeight;
+            };*/
 
             _gameSession = new GameSession();
             DataContext = _gameSession;

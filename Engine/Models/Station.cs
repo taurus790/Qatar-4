@@ -12,6 +12,7 @@ namespace Engine.Models
         #region Private attributes 
 
         private string _Name;
+        private int _ID;
         private int _PosX;
         private int _PosY;
         private int _Level;
@@ -19,6 +20,26 @@ namespace Engine.Models
         #endregion
 
         #region Public properties
+
+        public string Name
+        {
+            get { return _Name; }
+            set
+            {
+                _Name = value;
+                OnPropertyChanged(nameof(Name));
+            }
+        }
+
+        public int ID
+        {
+            get { return _ID; }
+            set
+            {
+                _ID = value;
+                OnPropertyChanged(nameof(ID));
+            }
+        }
 
         public int PosX
         {
@@ -52,6 +73,18 @@ namespace Engine.Models
 
         #endregion
 
+        #region Construction 
+
+        public Station(int id, string name, int posX, int posY, int level)
+        {
+            ID = id;
+            Name = name;
+            PosX = posX;
+            PosY = posY;
+            Level = level;
+        }
+
+        #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
 
