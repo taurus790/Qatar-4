@@ -46,17 +46,7 @@ namespace Qatar_4
                 Fill = new SolidColorBrush(Colors.Pink)
             };
 
-            Ellipse e2 = new Ellipse
-            {
-                Width = 5,
-                Height = 10,
-                StrokeThickness = 2,
-                Stroke = new SolidColorBrush(Colors.Blue),
-                Fill = new SolidColorBrush(Colors.Yellow)
-            };
-
-            Map.Children.Add(e1);
-            Map.Children.Add(e2);
+            //Map.Children.Add(e1);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

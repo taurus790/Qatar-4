@@ -96,25 +96,29 @@
         <!--Map Canvas-->
         <Grid Grid.Row="1" Grid.Column="1"
                     Background="Beige">
-
             <Border BorderBrush="Gainsboro" BorderThickness="2">
-                <Canvas x:Name="Map" 
-                        Width="Auto" Height="Auto"
-                        MinWidth="100" MinHeight="100">
-                    <!--Stlye for Ellipses i.e. Stations-->
-                    <Canvas.Resources>
-                        <Style TargetType="{x:Type Ellipse}">
-                            <Setter Property="Canvas.Left" Value="{Binding CurrentStation.PosX}"/>
-                            <Setter Property="Canvas.Top" Value="{Binding CurrentStation.PosY}"/>
-                            <Setter Property="Width" Value="{Binding Width}"/>
-                            <Setter Property="Height" Value="{Binding Height}"/>
-                            <Setter Property="StrokeThickness" Value="{Binding StrokeThickness}"/>
-                            <Setter Property="Stroke" Value="{Binding Stroke}"/>
-                            <Setter Property="Fill" Value="{Binding Fill}"/>
+                <ItemsControl ItemsSource="{Binding CurrentWorld.StationsObsColc}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    
+                    <ItemsControl.ItemContainerStyle>
+                        <Style>
+                            <Setter Property="Canvas.Left" Value="{Binding PosX}"/>
+                            <Setter Property="Canvas.Top" Value="{Binding PosY}"/>
                         </Style>
-                    </Canvas.Resources>
-
-                </Canvas>
+                    </ItemsControl.ItemContainerStyle>
+                    
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Ellipse Width="{Binding Level}" Height="{Binding Level}"
+                                     StrokeThickness="2" Stroke="Black" Fill="White">
+                            </Ellipse>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </Border>
         </Grid>
 
