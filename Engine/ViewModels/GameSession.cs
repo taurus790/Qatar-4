@@ -17,8 +17,9 @@ namespace Engine.ViewModels
     {
         #region Private attributes
 
-        private TimeSpan _WorldElapsedTime;
         private World _CurrentWorld;
+        private int _WorldHoursPerSecond;
+        private TimeSpan _WorldElapsedTime;
         private Player _CurrentPlayer;
         private Station _CurrentStation;
         private Train _CurrentTrain;
@@ -34,6 +35,17 @@ namespace Engine.ViewModels
             {
                 _CurrentWorld = value;
                 OnPropertyChanged(nameof(CurrentWorld));
+            }
+        }
+
+        public int WorldHoursperSecond
+        {
+            get { return _WorldHoursPerSecond; }
+            set
+            {
+                _WorldHoursPerSecond = value;
+                WorldElapsedTime = TimeSpan.FromSeconds(WorldHoursperSecond * 60 * 60 / 60);
+                OnPropertyChanged(nameof(WorldHoursperSecond));
             }
         }
 
@@ -89,7 +101,8 @@ namespace Engine.ViewModels
             CurrentWorld = factory.CreateWorld();
             CurrentStation = CurrentWorld.StationWithID(1);
 
-            WorldElapsedTime = TimeSpan.FromSeconds(1*60*60 / 60); // Every real second is equal to 2 Hours in the game (division by 60 is due 60fps)
+            // Every real second is equal to WorldHoursperSecond Hours in the game (division by 60 is due 60fps)
+            WorldHoursperSecond = 2;
 
             CompositionTarget.Rendering += CompositionTarget_Rendering;
         }
