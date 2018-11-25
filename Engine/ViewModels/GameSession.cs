@@ -7,13 +7,17 @@ using System.Threading.Tasks;
 using Engine.Factories;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Engine.Models.Bases;
+using System.Windows.Threading;
+using System.Windows.Media;
 
 namespace Engine.ViewModels
 {
-    public class GameSession : INotifyPropertyChanged
+    public class GameSession : BaseCsINotify
     {
-        #region Public properties
+        #region Private attributes
 
+        private TimeSpan _WorldElapsedTime;
         private World _CurrentWorld;
         private Player _CurrentPlayer;
         private Station _CurrentStation;
@@ -30,6 +34,16 @@ namespace Engine.ViewModels
             {
                 _CurrentWorld = value;
                 OnPropertyChanged(nameof(CurrentWorld));
+            }
+        }
+
+        public TimeSpan WorldElapsedTime
+        {
+            get { return _WorldElapsedTime; }
+            set
+            {
+                _WorldElapsedTime = value;
+                OnPropertyChanged(nameof(WorldElapsedTime));
             }
         }
 
@@ -70,23 +84,21 @@ namespace Engine.ViewModels
         public GameSession()
         {
             WorldFactory factory = new WorldFactory();
-            CurrentWorld = factory.CreateWorld();
 
+            CurrentPlayer = factory.CreatePlayer();
+            CurrentWorld = factory.CreateWorld();
             CurrentStation = CurrentWorld.StationWithID(1);
 
-            CurrentPlayer = new Player();
-            CurrentPlayer.Name = "Taurus790";
-            CurrentPlayer.ImageSrc = "/Engine;component/Images/Player/pic1.jpg";
-            CurrentPlayer.Money = 1000000;
+            WorldElapsedTime = TimeSpan.FromSeconds(1*60*60 / 60); // Every real second is equal to 2 Hours in the game (division by 60 is due 60fps)
+
+            CompositionTarget.Rendering += CompositionTarget_Rendering;
         }
 
         #endregion
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
+        private void CompositionTarget_Rendering(object sender, EventArgs e)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            CurrentWorld.UpdateWorld(WorldElapsedTime);
         }
     }
 }

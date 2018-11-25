@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Engine.Models.Bases;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,39 +8,18 @@ using System.Threading.Tasks;
 
 namespace Engine.Models
 {
-    public class Train : INotifyPropertyChanged
+    public class Train : BaseCsGameEntity 
     {
         #region Private attributes
 
-        private int _PosX;
-        private int _PosY;
+        private double _VelX;
+        private double _VelY;
 
         #endregion
 
         #region Public properties
 
-        public int PosX
-        {
-            get { return _PosX; }
-            set
-            {
-                _PosX = value;
-                OnPropertyChanged(nameof(PosX));
-            }
-        }
-
-        public int PosY
-        {
-            get { return _PosY; }
-            set
-            {
-                _PosY = value;
-                OnPropertyChanged(nameof(PosY));
-            }
-        }
-
-        private int _VelX;
-        public int VelX
+        public double VelX
         {
             get { return _VelX; }
             set
@@ -49,8 +29,7 @@ namespace Engine.Models
             }
         }
 
-        private int _VelY;
-        public int VelY
+        public double VelY
         {
             get { return _VelY; }
             set
@@ -62,13 +41,16 @@ namespace Engine.Models
 
         #endregion
 
+        #region Constructor
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
+        public Train (double velX, double velY, int id, string name, double posX, double posY, int level)
+            : base(id, name, posX, posY, level)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            VelX = velX;
+            VelY = velY;
         }
-    }
 
+        #endregion
+
+    }
 }

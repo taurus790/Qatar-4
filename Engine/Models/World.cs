@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Engine.Models.Bases;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -8,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Engine.Models
 {
-    public class World : INotifyPropertyChanged
+    public class World : BaseCsGameEntity
     {
         #region Private attributes
 
         private List<Station> _Stations = new List<Station>();
-
         private ObservableCollection<Station> _EntitiesOnMap = new ObservableCollection<Station>();
+        private DateTime _WorldTime;
 
         #endregion
 
@@ -40,6 +41,31 @@ namespace Engine.Models
             }
         }
 
+        public DateTime WorldTime
+        {
+            get { return _WorldTime; }
+            set
+            {
+                _WorldTime = value;
+                OnPropertyChanged(nameof(WorldTime));
+            }
+        }
+
+
+        #endregion
+
+        #region Constructor
+
+        public World(int id, string name, double posX, double posY, int level)
+            : base(id, name, posX, posY, level)
+        {
+            // A World has no position. 
+            PosX = 0;
+            PosY = 0;
+
+            WorldTime = new DateTime(1800, 1, 1, 0, 0, 0);
+        }
+
         #endregion
 
         internal void AddStation(int id, string name, int posX, int posY, int level)
@@ -62,11 +88,14 @@ namespace Engine.Models
             return null;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
+        public void UpdateWorld(TimeSpan elapsed)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            WorldTime += elapsed;
+
+            foreach(Station station in EntitiesOnMap)
+            {
+                station.PosX += elapsed.TotalSeconds/60;
+            }
         }
     }
 }

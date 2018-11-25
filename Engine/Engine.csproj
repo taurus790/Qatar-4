@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,9 +40,12 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factories\WorldFactory.cs" />
+    <Compile Include="Models\Bases\BaseCsGameEntity.cs" />
+    <Compile Include="Models\Bases\BaseCsINotify.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Station.cs" />
     <Compile Include="Models\Train.cs" />
