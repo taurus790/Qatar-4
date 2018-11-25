@@ -90,6 +90,8 @@
             <StackPanel Grid.Row="1"
                         Background="Azure">
                 <Label>News</Label>
+                <TextBlock Text="{Binding CurrentWorld.WorldTime, 
+                    StringFormat='{}{0:dd.MM.yyyy, HH:mm}'}"></TextBlock>
             </StackPanel>
         </Grid>
 

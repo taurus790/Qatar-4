@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 
 namespace Engine.Models
 {
-    public class World : BaseCsGameEntity 
+    public class World : BaseCsGameEntity
     {
         #region Private attributes
 
         private List<Station> _Stations = new List<Station>();
         private ObservableCollection<Station> _EntitiesOnMap = new ObservableCollection<Station>();
+        private DateTime _WorldTime;
 
         #endregion
 
@@ -40,16 +41,29 @@ namespace Engine.Models
             }
         }
 
+        public DateTime WorldTime
+        {
+            get { return _WorldTime; }
+            set
+            {
+                _WorldTime = value;
+                OnPropertyChanged(nameof(WorldTime));
+            }
+        }
+
+
         #endregion
 
         #region Constructor
 
-        public World (int id, string name, double posX, double posY, int level)
+        public World(int id, string name, double posX, double posY, int level)
             : base(id, name, posX, posY, level)
         {
             // A World has no position. 
             PosX = 0;
             PosY = 0;
+
+            WorldTime = new DateTime(1800, 1, 1, 0, 0, 0);
         }
 
         #endregion
@@ -72,6 +86,15 @@ namespace Engine.Models
                 }
             }
             return null;
+        }
+
+        public void UpdateWorld(double elapsed)
+        {
+            WorldTime+= TimeSpan.FromMinutes(elapsed);
+            foreach(Station station in EntitiesOnMap)
+            {
+                station.PosX += elapsed;
+            }
         }
     }
 }

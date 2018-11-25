@@ -8,12 +8,17 @@ using Engine.Factories;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Engine.Models.Bases;
+using System.Windows.Threading;
 
 namespace Engine.ViewModels
 {
     public class GameSession : BaseCsINotify
     {
-        #region Public properties
+        #region Private attributes
+
+        private double _UpdateInterval; // The updates/ticks every [_UpdateInterval] milliseconds
+        private DispatcherTimer _Updater;
+
 
         private World _CurrentWorld;
         private Player _CurrentPlayer;
@@ -76,8 +81,18 @@ namespace Engine.ViewModels
 
             CurrentStation = CurrentWorld.StationWithID(1);
 
+            _UpdateInterval = 40; // The updates/ticks every [_UpdateInterval] milliseconds
+            _Updater = new DispatcherTimer();
+            _Updater.Interval = TimeSpan.FromMilliseconds(_UpdateInterval);
+            _Updater.Tick += UpdateWorld;
+            _Updater.Start();
         }
 
         #endregion
+
+        private void UpdateWorld(object sender, EventArgs e)
+        {
+            CurrentWorld.UpdateWorld(5);
+        }
     }
 }
