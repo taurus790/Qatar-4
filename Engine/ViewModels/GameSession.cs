@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Engine.Models.Bases;
 using System.Windows.Threading;
+using System.Windows.Media;
 
 namespace Engine.ViewModels
 {
@@ -16,10 +17,7 @@ namespace Engine.ViewModels
     {
         #region Private attributes
 
-        private double _UpdateInterval; // The updates/ticks every [_UpdateInterval] milliseconds
-        private DispatcherTimer _Updater;
-
-
+        private TimeSpan _WorldElapsedTime;
         private World _CurrentWorld;
         private Player _CurrentPlayer;
         private Station _CurrentStation;
@@ -36,6 +34,16 @@ namespace Engine.ViewModels
             {
                 _CurrentWorld = value;
                 OnPropertyChanged(nameof(CurrentWorld));
+            }
+        }
+
+        public TimeSpan WorldElapsedTime
+        {
+            get { return _WorldElapsedTime; }
+            set
+            {
+                _WorldElapsedTime = value;
+                OnPropertyChanged(nameof(WorldElapsedTime));
             }
         }
 
@@ -76,23 +84,21 @@ namespace Engine.ViewModels
         public GameSession()
         {
             WorldFactory factory = new WorldFactory();
+
             CurrentPlayer = factory.CreatePlayer();
             CurrentWorld = factory.CreateWorld();
-
             CurrentStation = CurrentWorld.StationWithID(1);
 
-            _UpdateInterval = 40; // The updates/ticks every [_UpdateInterval] milliseconds
-            _Updater = new DispatcherTimer();
-            _Updater.Interval = TimeSpan.FromMilliseconds(_UpdateInterval);
-            _Updater.Tick += UpdateWorld;
-            _Updater.Start();
+            WorldElapsedTime = TimeSpan.FromSeconds(1*60*60 / 60); // Every real second is equal to 2 Hours in the game (division by 60 is due 60fps)
+
+            CompositionTarget.Rendering += CompositionTarget_Rendering;
         }
 
         #endregion
 
-        private void UpdateWorld(object sender, EventArgs e)
+        private void CompositionTarget_Rendering(object sender, EventArgs e)
         {
-            CurrentWorld.UpdateWorld(5);
+            CurrentWorld.UpdateWorld(WorldElapsedTime);
         }
     }
 }

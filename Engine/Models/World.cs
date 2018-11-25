@@ -88,12 +88,13 @@ namespace Engine.Models
             return null;
         }
 
-        public void UpdateWorld(double elapsed)
+        public void UpdateWorld(TimeSpan elapsed)
         {
-            WorldTime+= TimeSpan.FromMinutes(elapsed);
+            WorldTime += elapsed;
+
             foreach(Station station in EntitiesOnMap)
             {
-                station.PosX += elapsed;
+                station.PosX += elapsed.TotalSeconds/60;
             }
         }
     }
