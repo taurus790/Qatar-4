@@ -7,9 +7,9 @@ using Engine.Models;
 
 namespace Engine.Factories
 {
-    internal class WorldFactory
+    internal static class WorldFactory
     {
-        internal World CreateWorld()
+        internal static World  CreateWorld()
         {
             World newWorld = new World(1, "First World", 0, 0, 0);
 
@@ -20,7 +20,7 @@ namespace Engine.Factories
             return newWorld;
         }
 
-        internal Player CreatePlayer()
+        internal static Player CreatePlayer()
         {
             Player newPlayer = new Player(1000000, "/Engine;component/Images/Player/pic1.jpg",1,"Taurus790",0,0,0);
 

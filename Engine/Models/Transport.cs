@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Engine.Models
 {
-    public class Train : BaseCsGameEntity 
+    public class Transport : BaseCsGameEntity 
     {
         #region Private attributes
 
@@ -43,7 +43,7 @@ namespace Engine.Models
 
         #region Constructor
 
-        public Train (double velX, double velY, int id, string name, double posX, double posY, int level)
+        public Transport (double velX, double velY, int id, string name, double posX, double posY, int level)
             : base(id, name, posX, posY, level)
         {
             VelX = velX;

@@ -22,7 +22,7 @@ namespace Engine.ViewModels
         private TimeSpan _WorldElapsedTime;
         private Player _CurrentPlayer;
         private Station _CurrentStation;
-        private Train _CurrentTrain;
+        private Transport _CurrentTrain;
 
         #endregion
 
@@ -79,7 +79,7 @@ namespace Engine.ViewModels
             }
         }
 
-        public Train CurrentTrain
+        public Transport CurrentTrain
         {
             get { return _CurrentTrain; }
             set
@@ -95,10 +95,8 @@ namespace Engine.ViewModels
 
         public GameSession()
         {
-            WorldFactory factory = new WorldFactory();
-
-            CurrentPlayer = factory.CreatePlayer();
-            CurrentWorld = factory.CreateWorld();
+            CurrentPlayer = WorldFactory.CreatePlayer();
+            CurrentWorld = WorldFactory.CreateWorld();
             CurrentStation = CurrentWorld.StationWithID(1);
 
             // Every real second is equal to WorldHoursperSecond Hours in the game (division by 60 is due 60fps)
