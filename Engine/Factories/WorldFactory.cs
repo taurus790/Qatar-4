@@ -11,13 +11,20 @@ namespace Engine.Factories
     {
         internal World CreateWorld()
         {
-            World newWorld = new World();
+            World newWorld = new World(1, "First World", 0, 0, 0);
 
             newWorld.AddStation(1, "28 May", 10, 10, 20);
             newWorld.AddStation(2, "Gənclik", 100, 100, 10);
             newWorld.AddStation(3, "Nərimanov", 150, 150, 10);
 
             return newWorld;
+        }
+
+        internal Player CreatePlayer()
+        {
+            Player newPlayer = new Player(1000000, "/Engine;component/Images/Player/pic1.jpg",1,"Taurus790",0,0,0);
+
+            return newPlayer;
         }
     }
 }

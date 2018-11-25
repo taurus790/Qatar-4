@@ -40,6 +40,7 @@ namespace Qatar_4
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            _gameSession.CurrentPlayer.Money++;
             _gameSession.CurrentStation.PosY -= 10;
         }
 
@@ -57,6 +58,7 @@ namespace Qatar_4
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
+            _gameSession.CurrentPlayer.Money--;
             _gameSession.CurrentStation.PosY += 10;
         }
     }

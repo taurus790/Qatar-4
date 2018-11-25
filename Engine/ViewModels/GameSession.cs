@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using Engine.Factories;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Engine.Models.Bases;
 
 namespace Engine.ViewModels
 {
-    public class GameSession : INotifyPropertyChanged
+    public class GameSession : BaseCsINotify
     {
         #region Public properties
 
@@ -70,23 +71,13 @@ namespace Engine.ViewModels
         public GameSession()
         {
             WorldFactory factory = new WorldFactory();
+            CurrentPlayer = factory.CreatePlayer();
             CurrentWorld = factory.CreateWorld();
 
             CurrentStation = CurrentWorld.StationWithID(1);
 
-            CurrentPlayer = new Player();
-            CurrentPlayer.Name = "Taurus790";
-            CurrentPlayer.ImageSrc = "/Engine;component/Images/Player/pic1.jpg";
-            CurrentPlayer.Money = 1000000;
         }
 
         #endregion
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }
