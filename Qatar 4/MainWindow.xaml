@@ -7,18 +7,8 @@
         mc:Ignorable="d"
         Title="The Game" 
         MinWidth="300" MinHeight="200"
-        SizeToContent="WidthAndHeight">
-
-    <!--Stlye for Ellipses i.e. Stations-->
-    <Window.Resources>
-        <Style TargetType="{x:Type TextBlock}">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-
-        <Style TargetType="{x:Type Label}">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-    </Window.Resources>
+        SizeToContent="WidthAndHeight"
+        xmlns:src="clr-namespace:Engine.Models;assembly=Engine" >
 
     <!--Main grid-->
     <Grid>
@@ -115,14 +105,20 @@
                             <Setter Property="Canvas.Top" Value="{Binding PosY}"/>
                         </Style>
                     </ItemsControl.ItemContainerStyle>
-                    
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
+
+                    <ItemsControl.Resources>
+                        <DataTemplate DataType="{x:Type src:Station }">
                             <Ellipse Width="{Binding Width}" Height="{Binding Height}"
                                      StrokeThickness="2" Stroke="Black" Fill="White">
                             </Ellipse>
                         </DataTemplate>
-                    </ItemsControl.ItemTemplate>
+                        
+                        <DataTemplate DataType="{x:Type src:Transport }">
+                            <Rectangle Width="{Binding Width}" Height="{Binding Height}"
+                                     StrokeThickness="2" Stroke="Red" Fill="White">
+                            </Rectangle>
+                        </DataTemplate>
+                    </ItemsControl.Resources>
                 </ItemsControl>
             </Border>
         </Grid>

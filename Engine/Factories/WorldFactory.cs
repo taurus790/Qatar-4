@@ -17,7 +17,7 @@ namespace Engine.Factories
             newWorld.AddStation(2, "Gənclik", 10, 100, 100, 10, 10);
             newWorld.AddStation(3, "Nərimanov", 10, 150, 150, 10, 10);
 
-            newWorld.AddTransport(1, "A", 1, 10, 55, 10, 10, 60, 60);
+            newWorld.AddTransport(1, "A", 1, 10, 10, 10, 10, 60, 60);
 
             return newWorld;
         }

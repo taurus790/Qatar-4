@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 
 namespace Engine.Models
 {
@@ -15,12 +16,23 @@ namespace Engine.Models
 
         private List<Station> _Stations = new List<Station>();
         private List<Transport> _Transports = new List<Transport>();
-        private ObservableCollection<BaseCsGameEntity> _EntitiesOnMap = new ObservableCollection<BaseCsGameEntity>();
+        private CompositeCollection _EntitiesOnMap1 = new CompositeCollection();
+
         private DateTime _WorldTime;
 
         #endregion
 
         #region Public properties
+
+        public CompositeCollection EntitiesOnMap
+        {
+            get { return _EntitiesOnMap1; }
+            set
+            {
+                _EntitiesOnMap1 = value;
+                OnPropertyChanged(nameof(EntitiesOnMap));
+            }
+        }
 
         public List<Station> Stations
         {
@@ -42,16 +54,6 @@ namespace Engine.Models
             }
         }
 
-        public ObservableCollection<BaseCsGameEntity> EntitiesOnMap
-        {
-            get { return _EntitiesOnMap; }
-            set
-            {
-                _EntitiesOnMap = value;
-                OnPropertyChanged(nameof(EntitiesOnMap));
-            }
-        }
-
         public DateTime WorldTime
         {
             get { return _WorldTime; }
@@ -70,6 +72,9 @@ namespace Engine.Models
             : base(id, name, level, 0, 0, width, height)
         {
             // A World has no position.
+
+            EntitiesOnMap.Add(new CollectionContainer() { Collection = Stations });
+            EntitiesOnMap.Add(new CollectionContainer() { Collection = Transports });
 
             WorldTime = new DateTime(1800, 1, 1, 0, 0, 0);
         }
@@ -108,13 +113,12 @@ namespace Engine.Models
         {
             WorldTime += worldElapsedTime;
 
-            foreach (BaseCsGameEntity gameEntity in EntitiesOnMap)
+            foreach (Transport transport in Transports)
             {
-                if (gameEntity is Transport)
+                if (transport is Transport)
                 {
-                    // 60 is slowdown
-                    gameEntity.PosX += worldElapsedTime.TotalSeconds / 60;
-                    gameEntity.PosY += worldElapsedTime.TotalSeconds / 60;
+                    transport.PosX += transport.VelX * worldElapsedTime.TotalSeconds / 3600;
+                    transport.PosY += transport.VelY * worldElapsedTime.TotalSeconds / 3600;
                 }
             }
         }
