@@ -44,7 +44,8 @@ namespace Engine.ViewModels
             set
             {
                 _WorldHoursPerSecond = value;
-                WorldElapsedTime = TimeSpan.FromSeconds(WorldHoursperSecond * 60 * 60 / 60);
+                // Converts real elapsed time to elapsed time in the game (division by 60 is due 60fps).
+                WorldElapsedTime = TimeSpan.FromSeconds(WorldHoursperSecond * 3600 / 60);
                 OnPropertyChanged(nameof(WorldHoursperSecond));
             }
         }
@@ -99,8 +100,8 @@ namespace Engine.ViewModels
             CurrentWorld = WorldFactory.CreateWorld();
             CurrentStation = CurrentWorld.StationWithID(1);
 
-            // Every real second is equal to WorldHoursperSecond Hours in the game (division by 60 is due 60fps)
-            WorldHoursperSecond = 2;
+            // Every real second is equal to WorldHoursperSecond Hours in the game.
+            WorldHoursperSecond = 1;
 
             CompositionTarget.Rendering += CompositionTarget_Rendering;
         }

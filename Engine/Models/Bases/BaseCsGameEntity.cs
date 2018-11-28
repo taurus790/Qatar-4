@@ -17,6 +17,9 @@ namespace Engine.Models.Bases
         private double _PosY;
         private int _Level;
 
+        private int _Width;
+        private int _Height;
+
         #endregion
 
         #region Public properties 
@@ -41,6 +44,16 @@ namespace Engine.Models.Bases
             }
         }
 
+        public int Level
+        {
+            get { return _Level; }
+            set
+            {
+                _Level = value;
+                OnPropertyChanged(nameof(Level));
+            }
+        }
+
         public double PosX
         {
             get { return _PosX; }
@@ -61,13 +74,23 @@ namespace Engine.Models.Bases
             }
         }
 
-        public int Level
+        public int Width
         {
-            get { return _Level; }
+            get { return _Width; }
             set
             {
-                _Level = value;
-                OnPropertyChanged(nameof(Level));
+                _Width = value;
+                OnPropertyChanged(nameof(Width));
+            }
+        }
+
+        public int Height
+        {
+            get { return _Height; }
+            set
+            {
+                _Height = value;
+                OnPropertyChanged(nameof(Height));
             }
         }
 
@@ -75,13 +98,15 @@ namespace Engine.Models.Bases
 
         #region Constructor
 
-        public BaseCsGameEntity(int id, string name, double posX, double posY, int level)
+        public BaseCsGameEntity(int id, string name, int level, double posX, double posY, int width, int height)
         {
             ID = id;
             Name = name;
+            Level = level;
             PosX = posX;
             PosY = posY;
-            Level = level;
+            Width = width;
+            Height = height;
         }
 
         #endregion

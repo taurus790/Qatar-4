@@ -14,7 +14,8 @@ namespace Engine.Models
         #region Private attributes
 
         private List<Station> _Stations = new List<Station>();
-        private ObservableCollection<Station> _EntitiesOnMap = new ObservableCollection<Station>();
+        private List<Transport> _Transports = new List<Transport>();
+        private ObservableCollection<BaseCsGameEntity> _EntitiesOnMap = new ObservableCollection<BaseCsGameEntity>();
         private DateTime _WorldTime;
 
         #endregion
@@ -31,7 +32,17 @@ namespace Engine.Models
             }
         }
 
-        public ObservableCollection<Station> EntitiesOnMap
+        public List<Transport> Transports
+        {
+            get { return _Transports; }
+            set
+            {
+                _Transports = value;
+                OnPropertyChanged(nameof(Transports));
+            }
+        }
+
+        public ObservableCollection<BaseCsGameEntity> EntitiesOnMap
         {
             get { return _EntitiesOnMap; }
             set
@@ -51,29 +62,34 @@ namespace Engine.Models
             }
         }
 
-
         #endregion
 
         #region Constructor
 
-        public World(int id, string name, double posX, double posY, int level)
-            : base(id, name, posX, posY, level)
+        public World(int id, string name, int level, int width, int height)
+            : base(id, name, level, 0, 0, width, height)
         {
-            // A World has no position. 
-            PosX = 0;
-            PosY = 0;
+            // A World has no position.
 
             WorldTime = new DateTime(1800, 1, 1, 0, 0, 0);
         }
 
         #endregion
 
-        internal void AddStation(int id, string name, int posX, int posY, int level)
+        internal void AddStation(int id, string name, int level, int posX, int posY, int width, int height)
         {
-            Station station = new Station(id, name, posX, posY, level);
+            Station station = new Station(id, name, level, posX, posY, width, height);
 
             Stations.Add(station);
             EntitiesOnMap.Add(station);
+        }
+
+        internal void AddTransport(int id, string name, int level, int posX, int posY, int width, int height, int velX, int velY)
+        {
+            Transport transport = new Transport(velX, velY, id, name, level, posX, posY, width, height);
+
+            Transports.Add(transport);
+            EntitiesOnMap.Add(transport);
         }
 
         public Station StationWithID(int id)
@@ -88,13 +104,18 @@ namespace Engine.Models
             return null;
         }
 
-        public void UpdateWorld(TimeSpan elapsed)
+        public void UpdateWorld(TimeSpan worldElapsedTime)
         {
-            WorldTime += elapsed;
+            WorldTime += worldElapsedTime;
 
-            foreach(Station station in EntitiesOnMap)
+            foreach (BaseCsGameEntity gameEntity in EntitiesOnMap)
             {
-                station.PosX += elapsed.TotalSeconds/60;
+                if (gameEntity is Transport)
+                {
+                    // 60 is slowdown
+                    gameEntity.PosX += worldElapsedTime.TotalSeconds / 60;
+                    gameEntity.PosY += worldElapsedTime.TotalSeconds / 60;
+                }
             }
         }
     }

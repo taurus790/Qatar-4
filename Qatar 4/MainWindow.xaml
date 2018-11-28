@@ -97,12 +97,15 @@
 
         <!--Map Canvas-->
         <Grid Grid.Row="1" Grid.Column="1"
-                    Background="Beige">
-            <Border BorderBrush="Gainsboro" BorderThickness="2">
+                    Background="#fff">
+            <Border HorizontalAlignment="Center" VerticalAlignment="Center"
+                BorderBrush="#bbb" BorderThickness="2">
                 <ItemsControl ItemsSource="{Binding CurrentWorld.EntitiesOnMap}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <Canvas/>
+                            <Canvas Width="{Binding CurrentWorld.Width}" Height="{Binding CurrentWorld.Height}"
+                                    MinWidth="50" MinHeight="50"
+                                    Background="#f9f9f9"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     
@@ -115,7 +118,7 @@
                     
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Ellipse Width="{Binding Level}" Height="{Binding Level}"
+                            <Ellipse Width="{Binding Width}" Height="{Binding Height}"
                                      StrokeThickness="2" Stroke="Black" Fill="White">
                             </Ellipse>
                         </DataTemplate>
