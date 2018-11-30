@@ -94,9 +94,9 @@ namespace Engine.Models
 
         #endregion
 
-        public void AddStation(string name, int level, double posX, double posY, double width, double height)
+        public void AddStation(string name, int level, double posX, double posY)
         {
-            Station station = new Station(Stations.Count, name, level, posX, posY, width, height);
+            Station station = new Station(Stations.Count, name, level, posX, posY);
 
             Stations.Add(station);
         }

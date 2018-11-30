@@ -13,9 +13,10 @@ namespace Engine.Models.Bases
 
         private int _ID;
         private string _Name;
+        private int _Level;
+
         private double _PosX;
         private double _PosY;
-        private int _Level;
 
         private double _Width;
         private double _Height;
@@ -103,10 +104,10 @@ namespace Engine.Models.Bases
             ID = id;
             Name = name;
             Level = level;
-            PosX = posX;
-            PosY = posY;
             Width = width;
             Height = height;
+            PosX = posX;
+            PosY = posY;
         }
 
         #endregion
