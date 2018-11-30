@@ -13,12 +13,24 @@ namespace Engine.Factories
         {
             World newWorld = new World(1, "First World", 0, 800, 500);
 
-            newWorld.AddStation("28 May", 1, 10, 30);
-            newWorld.AddStation("Gənclik", 1, 100, 50);
+            newWorld.AddStation("28 May", 1, 100, 100);
+            newWorld.AddStation("Gənclik", 1, 200, 100);
+            newWorld.AddStation("Nərimanov", 1, 150, 200);
 
-            newWorld.AddTransport("A", 1, 10, 10, 10, 10, 60, 60);
+            newWorld.AddTransport("A", 1,
+                newWorld.Stations.ElementAt(0).CenterPosX,
+                newWorld.Stations.ElementAt(0).CenterPosY,
+                10, 10, 60);
+            newWorld.Transports.ElementAt(0).Route.Add(newWorld.Stations.ElementAt(0));
+            newWorld.Transports.ElementAt(0).Route.Add(newWorld.Stations.ElementAt(1));
+            newWorld.Transports.ElementAt(0).Route.Add(newWorld.Stations.ElementAt(2));
+            newWorld.Transports.ElementAt(0).Origin = newWorld.Stations.ElementAt(0);
+            newWorld.Transports.ElementAt(0).Destination = newWorld.Stations.ElementAt(1);
+            newWorld.Transports.ElementAt(0).CalculateVels();
 
             newWorld.AddWay("N.Tusi", 1, newWorld.Stations.ElementAt(0), newWorld.Stations.ElementAt(1));
+            newWorld.AddWay("N.Tusi", 1, newWorld.Stations.ElementAt(1), newWorld.Stations.ElementAt(2));
+            newWorld.AddWay("N.Tusi", 1, newWorld.Stations.ElementAt(2), newWorld.Stations.ElementAt(0));
 
             return newWorld;
         }

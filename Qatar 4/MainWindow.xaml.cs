@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Engine.Models;
 using Engine.ViewModels;
 
 namespace Qatar_4
@@ -42,30 +43,14 @@ namespace Qatar_4
         {
             if (Mouse.DirectlyOver != (Canvas)sender) return;
 
-            if (_gameSession.AddingNewStation)
-            {
-                _gameSession.CurrentWorld.AddStation("5", 1,
-                    Mouse.GetPosition((Canvas)sender).X,
-                    Mouse.GetPosition((Canvas)sender).Y);
-            }
+            _gameSession.MapClicked(Mouse.GetPosition((Canvas)sender).X, Mouse.GetPosition((Canvas)sender).Y);
         }
 
-        Ellipse SelectedStation = null;
         private void Ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (Mouse.DirectlyOver != (Ellipse)sender) return;
 
-            if (SelectedStation == null)
-            {
-                SelectedStation = (Ellipse)sender;
-            }
-            else
-            {
-                _gameSession.CurrentWorld.AddWay("k", 1,
-                    (Engine.Models.Station)((SelectedStation).DataContext),
-                    (Engine.Models.Station)(((Ellipse)sender).DataContext));
-                SelectedStation = null;
-            }
+            _gameSession.StationClicked(((Ellipse)sender).DataContext as Station);
         }
     }
 }

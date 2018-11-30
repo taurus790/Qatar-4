@@ -101,10 +101,10 @@ namespace Engine.Models
             Stations.Add(station);
         }
 
-        public void AddTransport(string name, int level, double posX, double posY, double width, 
-            double height, double velX, double velY)
+        public void AddTransport(string name, int level, double posX, double posY, double width,
+            double height, double vel)
         {
-            Transport transport = new Transport(velX, velY, Transports.Count, name, level, posX, posY, width, height);
+            Transport transport = new Transport(Transports.Count, name, level, posX, posY, width, height, vel);
 
             Transports.Add(transport);
         }
@@ -134,11 +134,7 @@ namespace Engine.Models
 
             foreach (Transport transport in Transports)
             {
-                if (transport is Transport)
-                {
-                    transport.PosX += transport.VelX * worldElapsedTime.TotalSeconds / 3600;
-                    transport.PosY += transport.VelY * worldElapsedTime.TotalSeconds / 3600;
-                }
+                transport.UpdateTransport(worldElapsedTime);
             }
         }
     }

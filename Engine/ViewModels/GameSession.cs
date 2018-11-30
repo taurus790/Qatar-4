@@ -126,5 +126,32 @@ namespace Engine.ViewModels
         {
             CurrentWorld.UpdateWorld(WorldElapsedTime);
         }
+
+        #region Recievers from MainWindow.xaml.cs
+
+        public void MapClicked(double mouseX, double mouseY)
+        {
+            if (AddingNewStation)
+            {
+                CurrentWorld.AddStation("5", 1, mouseX, mouseY);
+            }
+        }
+
+        internal Station selectedStation = null;
+
+        public void StationClicked(Station clickedStation)
+        {
+            if (selectedStation == null)
+            {
+                selectedStation = clickedStation;
+            }
+            else
+            {
+                CurrentWorld.AddWay("k", 1, selectedStation, clickedStation);
+                selectedStation = null;
+            }
+        }
+
+        #endregion
     }
 }
