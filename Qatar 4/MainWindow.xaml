@@ -111,7 +111,8 @@
 
                         <DataTemplate DataType="{x:Type src:Station }">
                             <Ellipse Width="{Binding Width}" Height="{Binding Height}"
-                                     StrokeThickness="2" Stroke="Black" Fill="White">
+                                     StrokeThickness="2" Stroke="Black" Fill="White"
+                                     MouseLeftButtonDown="Ellipse_MouseLeftButtonDown">
                             </Ellipse>
                         </DataTemplate>
 
