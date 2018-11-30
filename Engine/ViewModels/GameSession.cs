@@ -24,6 +24,8 @@ namespace Engine.ViewModels
         private Station _CurrentStation;
         private Transport _CurrentTrain;
 
+        private bool _addingNewStation;
+
         #endregion
 
         #region Public properties 
@@ -87,6 +89,16 @@ namespace Engine.ViewModels
             {
                 _CurrentTrain = value;
                 OnPropertyChanged(nameof(CurrentTrain));
+            }
+        }
+
+        public bool AddingNewStation
+        {
+            get { return _addingNewStation; }
+            set
+            {
+                _addingNewStation = value;
+                OnPropertyChanged(nameof(AddingNewStation));
             }
         }
 

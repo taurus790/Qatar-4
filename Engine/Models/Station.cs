@@ -19,7 +19,7 @@ namespace Engine.Models
 
         #region Public properties
 
-        public int Width
+        public new int Width
         {
             get { return Level; }
             set
@@ -29,7 +29,7 @@ namespace Engine.Models
             }
         }
 
-        public int Height
+        public new int Height
         {
             get { return Level; }
             set

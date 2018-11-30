@@ -13,11 +13,11 @@ namespace Engine.Factories
         {
             World newWorld = new World(1, "First World", 0, 800, 500);
 
-            newWorld.AddStation(1, "28 May", 20, 10, 20, 10, 10);
-            newWorld.AddStation(2, "Gənclik", 10, 100, 100, 10, 10);
-            newWorld.AddStation(3, "Nərimanov", 10, 150, 150, 10, 10);
+            newWorld.AddStation("28 May", 20, 10, 20, 10, 10);
+            newWorld.AddStation("Gənclik", 10, 100, 100, 10, 10);
+            newWorld.AddStation("Nərimanov", 10, 150, 150, 10, 10);
 
-            newWorld.AddTransport(1, "A", 1, 10, 10, 10, 10, 60, 60);
+            newWorld.AddTransport("A", 1, 10, 10, 10, 10, 60, 60);
 
             return newWorld;
         }

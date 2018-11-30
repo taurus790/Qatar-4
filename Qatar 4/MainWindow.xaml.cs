@@ -61,5 +61,15 @@ namespace Qatar_4
             _gameSession.CurrentPlayer.Money--;
             _gameSession.CurrentStation.PosY += 10;
         }
+
+        private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (_gameSession.AddingNewStation)
+            {
+                _gameSession.CurrentWorld.AddStation("5", 100,
+                    (int)Mouse.GetPosition((Canvas)sender).X - 25,
+                    (int)Mouse.GetPosition((Canvas)sender).Y - 25, 50, 50);
+            }
+        }
     }
 }

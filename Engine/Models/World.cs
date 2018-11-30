@@ -16,7 +16,7 @@ namespace Engine.Models
 
         private List<Station> _Stations = new List<Station>();
         private List<Transport> _Transports = new List<Transport>();
-        private CompositeCollection _EntitiesOnMap1 = new CompositeCollection();
+        private CompositeCollection _EntitiesOnMap = new CompositeCollection();
 
         private DateTime _WorldTime;
 
@@ -26,10 +26,10 @@ namespace Engine.Models
 
         public CompositeCollection EntitiesOnMap
         {
-            get { return _EntitiesOnMap1; }
+            get { return _EntitiesOnMap; }
             set
             {
-                _EntitiesOnMap1 = value;
+                _EntitiesOnMap = value;
                 OnPropertyChanged(nameof(EntitiesOnMap));
             }
         }
@@ -81,20 +81,18 @@ namespace Engine.Models
 
         #endregion
 
-        internal void AddStation(int id, string name, int level, int posX, int posY, int width, int height)
+        public void AddStation(string name, int level, int posX, int posY, int width, int height)
         {
-            Station station = new Station(id, name, level, posX, posY, width, height);
+            Station station = new Station(Stations.Count, name, level, posX, posY, width, height);
 
             Stations.Add(station);
-            EntitiesOnMap.Add(station);
         }
 
-        internal void AddTransport(int id, string name, int level, int posX, int posY, int width, int height, int velX, int velY)
+        public void AddTransport(string name, int level, int posX, int posY, int width, int height, int velX, int velY)
         {
-            Transport transport = new Transport(velX, velY, id, name, level, posX, posY, width, height);
+            Transport transport = new Transport(velX, velY, Transports.Count, name, level, posX, posY, width, height);
 
             Transports.Add(transport);
-            EntitiesOnMap.Add(transport);
         }
 
         public Station StationWithID(int id)
@@ -121,6 +119,10 @@ namespace Engine.Models
                     transport.PosY += transport.VelY * worldElapsedTime.TotalSeconds / 3600;
                 }
             }
+
+            EntitiesOnMap = new CompositeCollection();
+            EntitiesOnMap.Add(new CollectionContainer() { Collection = Stations });
+            EntitiesOnMap.Add(new CollectionContainer() { Collection = Transports });
         }
     }
 }
