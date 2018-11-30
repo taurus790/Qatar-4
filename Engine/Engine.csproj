@@ -48,6 +48,7 @@
     <Compile Include="Models\Bases\BaseCsGameEntity.cs" />
     <Compile Include="Models\Bases\BaseCsINotify.cs" />
     <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\Way.cs" />
     <Compile Include="Models\Station.cs" />
     <Compile Include="Models\Transport.cs" />
     <Compile Include="Models\World.cs" />

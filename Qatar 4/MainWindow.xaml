@@ -99,7 +99,7 @@
                                     MouseLeftButtonDown="Canvas_MouseLeftButtonDown"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
-                    
+
                     <ItemsControl.ItemContainerStyle>
                         <Style>
                             <Setter Property="Canvas.Left" Value="{Binding PosX}"/>
@@ -108,16 +108,9 @@
                     </ItemsControl.ItemContainerStyle>
 
                     <ItemsControl.Resources>
-                        <!--
-                        <DataTemplate DataType="{x:Type src:Station }">
-                            <Ellipse Width="{Binding Width}" Height="{Binding Height}"
-                                     StrokeThickness="2" Stroke="Black" Fill="White">
-                            </Ellipse>
-                        </DataTemplate>
-                        -->
 
                         <DataTemplate DataType="{x:Type src:Station }">
-                            <Ellipse Width="50" Height="50"
+                            <Ellipse Width="{Binding Width}" Height="{Binding Height}"
                                      StrokeThickness="2" Stroke="Black" Fill="White">
                             </Ellipse>
                         </DataTemplate>
@@ -127,7 +120,15 @@
                                      StrokeThickness="2" Stroke="Red" Fill="White">
                             </Rectangle>
                         </DataTemplate>
-                        
+
+                        <DataTemplate DataType="{x:Type src:Way }">
+                            <Line X1="{Binding PosX}" Y1="{Binding PosY}"
+                                  X2="{Binding Width}" Y2="{Binding Height}"
+                                  StrokeThickness="{Binding Level}" Stroke="Black" 
+                                  StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                            </Line>
+                        </DataTemplate>
+
                     </ItemsControl.Resources>
                 </ItemsControl>
             </Border>
@@ -193,21 +194,17 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">Tools</Label>
 
-                <CheckBox Grid.Row="1" Grid.Column="0" 
+                <Label Grid.Row="1" Grid.Column="0">New Station</Label>
+                <CheckBox Grid.Row="1" Grid.Column="1" 
+                          HorizontalAlignment="Center" VerticalAlignment="Center"
                           IsChecked="{Binding AddingNewStation, 
                                             Mode=TwoWay, 
-                                            FallbackValue=False}"/>
-
-                <Button Grid.Row="1" Grid.Column="1" Click="Button_Click">U</Button>
-                <Button Grid.Row="2" Grid.Column="0" Click="Button_Click_1">L</Button>
-                <Button Grid.Row="2" Grid.Column="2" Click="Button_Click_2">R</Button>
-                <Button Grid.Row="3" Grid.Column="1" Click="Button_Click_3">D</Button>
-
+                                            FallbackValue=True}">
+                </CheckBox>
             </Grid>
         </Grid>
 

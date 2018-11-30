@@ -17,8 +17,8 @@ namespace Engine.Models.Bases
         private double _PosY;
         private int _Level;
 
-        private int _Width;
-        private int _Height;
+        private double _Width;
+        private double _Height;
 
         #endregion
 
@@ -74,7 +74,7 @@ namespace Engine.Models.Bases
             }
         }
 
-        public int Width
+        public double Width
         {
             get { return _Width; }
             set
@@ -84,7 +84,7 @@ namespace Engine.Models.Bases
             }
         }
 
-        public int Height
+        public double Height
         {
             get { return _Height; }
             set
@@ -98,7 +98,7 @@ namespace Engine.Models.Bases
 
         #region Constructor
 
-        public BaseCsGameEntity(int id, string name, int level, double posX, double posY, int width, int height)
+        public BaseCsGameEntity(int id, string name, int level, double posX, double posY, double width, double height)
         {
             ID = id;
             Name = name;

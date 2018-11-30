@@ -14,8 +14,10 @@ namespace Engine.Models
     {
         #region Private attributes
 
-        private List<Station> _Stations = new List<Station>();
-        private List<Transport> _Transports = new List<Transport>();
+        private ObservableCollection<Way> _Ways = new ObservableCollection<Way>();
+        private ObservableCollection<Station> _Stations = new ObservableCollection<Station>();
+        private ObservableCollection<Transport> _Transports = new ObservableCollection<Transport>();
+
         private CompositeCollection _EntitiesOnMap = new CompositeCollection();
 
         private DateTime _WorldTime;
@@ -34,7 +36,17 @@ namespace Engine.Models
             }
         }
 
-        public List<Station> Stations
+        public ObservableCollection<Way> Ways
+        {
+            get { return _Ways; }
+            set
+            {
+                _Ways = value;
+                OnPropertyChanged(nameof(Ways));
+            }
+        }
+
+        public ObservableCollection<Station> Stations
         {
             get { return _Stations; }
             set
@@ -44,7 +56,7 @@ namespace Engine.Models
             }
         }
 
-        public List<Transport> Transports
+        public ObservableCollection<Transport> Transports
         {
             get { return _Transports; }
             set
@@ -73,6 +85,7 @@ namespace Engine.Models
         {
             // A World has no position.
 
+            EntitiesOnMap.Add(new CollectionContainer() { Collection = Ways });
             EntitiesOnMap.Add(new CollectionContainer() { Collection = Stations });
             EntitiesOnMap.Add(new CollectionContainer() { Collection = Transports });
 
@@ -81,18 +94,26 @@ namespace Engine.Models
 
         #endregion
 
-        public void AddStation(string name, int level, int posX, int posY, int width, int height)
+        public void AddStation(string name, int level, double posX, double posY, double width, double height)
         {
             Station station = new Station(Stations.Count, name, level, posX, posY, width, height);
 
             Stations.Add(station);
         }
 
-        public void AddTransport(string name, int level, int posX, int posY, int width, int height, int velX, int velY)
+        public void AddTransport(string name, int level, double posX, double posY, double width, 
+            double height, double velX, double velY)
         {
             Transport transport = new Transport(velX, velY, Transports.Count, name, level, posX, posY, width, height);
 
             Transports.Add(transport);
+        }
+
+        public void AddWay(string name, int level, double posX, double posY, double width, double height)
+        {
+            Way way = new Way(Ways.Count, name, level, posX, posY, width, height);
+
+            Ways.Add(way);
         }
 
         public Station StationWithID(int id)
@@ -119,10 +140,6 @@ namespace Engine.Models
                     transport.PosY += transport.VelY * worldElapsedTime.TotalSeconds / 3600;
                 }
             }
-
-            EntitiesOnMap = new CompositeCollection();
-            EntitiesOnMap.Add(new CollectionContainer() { Collection = Stations });
-            EntitiesOnMap.Add(new CollectionContainer() { Collection = Transports });
         }
     }
 }

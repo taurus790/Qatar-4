@@ -115,6 +115,8 @@ namespace Engine.ViewModels
             // Every real second is equal to WorldHoursperSecond Hours in the game.
             WorldHoursperSecond = 1;
 
+            AddingNewStation = true;
+
             CompositionTarget.Rendering += CompositionTarget_Rendering;
         }
 

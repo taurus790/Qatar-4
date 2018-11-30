@@ -38,37 +38,13 @@ namespace Qatar_4
             };*/
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            _gameSession.CurrentPlayer.Money++;
-            _gameSession.CurrentStation.PosY -= 10;
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            _gameSession.CurrentStation = _gameSession.CurrentWorld.StationWithID(_gameSession.CurrentStation.ID - 1);
-            _gameSession.CurrentStation.PosX -= 15;
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            _gameSession.CurrentStation = _gameSession.CurrentWorld.StationWithID(_gameSession.CurrentStation.ID + 1);
-            _gameSession.CurrentStation.PosX += 10;
-        }
-
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-            _gameSession.CurrentPlayer.Money--;
-            _gameSession.CurrentStation.PosY += 10;
-        }
-
         private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (_gameSession.AddingNewStation)
             {
-                _gameSession.CurrentWorld.AddStation("5", 100,
-                    (int)Mouse.GetPosition((Canvas)sender).X - 25,
-                    (int)Mouse.GetPosition((Canvas)sender).Y - 25, 50, 50);
+                _gameSession.CurrentWorld.AddStation("5", 1,
+                    Mouse.GetPosition((Canvas)sender).X - 5,
+                    Mouse.GetPosition((Canvas)sender).Y - 5, 50, 50);
             }
         }
     }

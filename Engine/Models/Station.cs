@@ -12,16 +12,16 @@ namespace Engine.Models
     {
         #region Private attributes 
 
-        private int _Width;
-        private int _Height;
+        private double _Width;
+        private double _Height;
 
         #endregion
 
         #region Public properties
 
-        public new int Width
+        public new double Width
         {
-            get { return Level; }
+            get { return Level*10; }
             set
             {
                 _Width = value;
@@ -29,9 +29,9 @@ namespace Engine.Models
             }
         }
 
-        public new int Height
+        public new double Height
         {
-            get { return Level; }
+            get { return Level*10; }
             set
             {
                 _Height = value;
@@ -43,7 +43,7 @@ namespace Engine.Models
 
         #region Constructor
 
-        public Station (int id, string name, int level, double posX, double posY, int width, int height)
+        public Station (int id, string name, int level, double posX, double posY, double width, double height)
             : base(id, name, level, posX, posY, width, height)
         {
 

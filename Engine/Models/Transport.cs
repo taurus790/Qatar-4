@@ -44,7 +44,7 @@ namespace Engine.Models
         #region Constructor
 
         public Transport (double velX, double velY,
-            int id, string name, int level, double posX, double posY, int width, int height)
+            int id, string name, int level, double posX, double posY, double width, double height)
             : base(id, name, level, posX, posY, width, height)
         {
             VelX = velX;
