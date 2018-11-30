@@ -109,9 +109,9 @@ namespace Engine.Models
             Transports.Add(transport);
         }
 
-        public void AddWay(string name, int level, double posX, double posY, double width, double height)
+        public void AddWay(string name, int level, Station start, Station end)
         {
-            Way way = new Way(Ways.Count, name, level, posX, posY, width, height);
+            Way way = new Way(Ways.Count, name, level, start, end);
 
             Ways.Add(way);
         }

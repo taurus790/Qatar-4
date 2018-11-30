@@ -45,7 +45,6 @@ namespace Qatar_4
                 _gameSession.CurrentWorld.AddStation("5", 1,
                     Mouse.GetPosition((Canvas)sender).X,
                     Mouse.GetPosition((Canvas)sender).Y);
-                int a = 0;
             }
         }
     }
