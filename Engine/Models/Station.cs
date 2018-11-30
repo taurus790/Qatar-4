@@ -12,41 +12,54 @@ namespace Engine.Models
     {
         #region Private attributes 
 
-        private double _Width;
-        private double _Height;
+        private double _CenterPosX;
+        private double _CenterPosY;
 
         #endregion
 
         #region Public properties
 
-        public new double Width
+        public double CenterPosX
         {
-            get { return Level*10; }
+            get { return _CenterPosX; }
             set
             {
-                _Width = value;
-                OnPropertyChanged(nameof(Width));
+                _CenterPosX = value;
+                PosX = CenterPosX - Width / 2;
+                OnPropertyChanged(nameof(CenterPosX));
             }
+        }
+
+        public double CenterPosY
+        {
+            get { return _CenterPosY; }
+            set
+            {
+                _CenterPosY = value;
+                PosY = CenterPosY - Height / 2;
+                OnPropertyChanged(nameof(CenterPosY));
+            }
+        }
+        
+        public new double Width
+        {
+            get { return Math.Sqrt(Level) * 10; }
         }
 
         public new double Height
         {
-            get { return Level*10; }
-            set
-            {
-                _Height = value;
-                OnPropertyChanged(nameof(Height));
-            }
+            get { return Math.Sqrt(Level) * 10; }
         }
 
         #endregion
 
         #region Constructor
 
-        public Station (int id, string name, int level, double posX, double posY, double width, double height)
-            : base(id, name, level, posX, posY, width, height)
+        public Station(int id, string name, int level, double posX, double posY)
+            : base(id, name, level, posX, posY, 0, 0)
         {
-
+            CenterPosX = posX;
+            CenterPosY = posY;
         }
 
         #endregion

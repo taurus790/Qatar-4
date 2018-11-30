@@ -173,9 +173,9 @@
                 <Label Grid.Row="3" Grid.Column="0" Content="Position:"/>
                 <TextBlock Grid.Row="3" Grid.Column="1">
                     <TextBlock.Text>
-                        <MultiBinding StringFormat="{}{0}; {1}">
-                            <Binding Path="CurrentStation.PosX"/>
-                            <Binding Path="CurrentStation.PosY"/>
+                        <MultiBinding StringFormat="{}{0:#,#}; {1:#,#}">
+                            <Binding Path="CurrentStation.CenterPosX"/>
+                            <Binding Path="CurrentStation.CenterPosY"/>
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
