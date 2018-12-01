@@ -25,9 +25,6 @@ namespace Engine.ViewModels
         private Station _currentStation;
         private Transport _currentTrain;
 
-        //TODO May be there is no need for _selectedStation, and _currentStation can be used instead 
-        private Station _selectedStation;
-
         private bool _addingNewStation;
 
         #endregion
@@ -106,16 +103,6 @@ namespace Engine.ViewModels
             }
         }
 
-        public Station SelectedStation
-        {
-            get { return _selectedStation; }
-            set
-            {
-                _selectedStation = value;
-                OnPropertyChanged(nameof(SelectedStation));
-            }
-        }
-
 
         #endregion
 
@@ -125,7 +112,6 @@ namespace Engine.ViewModels
         {
             CurrentPlayer = WorldFactory.CreatePlayer();
             CurrentWorld = WorldFactory.CreateWorld();
-            CurrentStation = CurrentWorld.StationWithID(0);
 
             // Every real second is equal to WorldHoursperSecond Hours in the game.
             WorldHoursPerSecond = 1;
@@ -154,14 +140,14 @@ namespace Engine.ViewModels
 
         public void StationClicked(Station clickedStation)
         {
-            if (SelectedStation == null)
+            if (CurrentStation == null)
             {
-                SelectedStation = clickedStation;
+                CurrentStation = clickedStation;
             }
             else
             {
-                CurrentWorld.AddWay("k", 1, SelectedStation, clickedStation);
-                SelectedStation = null;
+                CurrentWorld.AddWay("k", 1, CurrentStation, clickedStation);
+                CurrentStation = null;
             }
         }
 
