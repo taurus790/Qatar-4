@@ -20,6 +20,7 @@ namespace Engine.ViewModels
         private World _currentWorld;
         private int _worldHoursPerSecond;
         private TimeSpan _worldElapsedTime;
+        private bool _isPaused=false;
 
         private Player _currentPlayer;
         private Station _currentStation;
@@ -60,6 +61,14 @@ namespace Engine.ViewModels
             {
                 _worldElapsedTime = value;
                 OnPropertyChanged(nameof(WorldElapsedTime));
+            }
+        }
+
+        public bool IsPaused
+        {
+            get { return _isPaused; }
+            set { _isPaused = value;
+                OnPropertyChanged(nameof(IsPaused));
             }
         }
 
@@ -116,6 +125,7 @@ namespace Engine.ViewModels
             // Every real second is equal to WorldHoursperSecond Hours in the game.
             WorldHoursPerSecond = 1;
 
+            //HACK delete
             AddingNewStation = true;
 
             CompositionTarget.Rendering += CompositionTarget_Rendering;
@@ -125,10 +135,18 @@ namespace Engine.ViewModels
 
         private void CompositionTarget_Rendering(object sender, EventArgs e)
         {
-            CurrentWorld.UpdateWorld(WorldElapsedTime);
+            if (!IsPaused)
+            {
+                CurrentWorld.UpdateWorld(WorldElapsedTime);
+            }
         }
 
         #region Recievers from MainWindow.xaml.cs
+
+        public void PausePlayClicked()
+        {
+            IsPaused = !IsPaused;
+        }
 
         public void MapClicked(double mouseX, double mouseY)
         {

@@ -52,5 +52,10 @@ namespace Qatar_4
 
             _gameSession.StationClicked(((Ellipse)sender).DataContext as Station);
         }
+
+        private void PausePlay_Click(object sender, RoutedEventArgs e)
+        {
+            _gameSession.PausePlayClicked();
+        }
     }
 }
