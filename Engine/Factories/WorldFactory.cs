@@ -33,7 +33,7 @@ namespace Engine.Factories
 
         internal static Player CreatePlayer()
         {
-            Player newPlayer = new Player(1000000, "/Engine;component/Images/Player/pic1.jpg", 1, "Taurus790", 0);
+            Player newPlayer = new Player(0, "Taurus790", 0, 1000000, "/Engine;component/Images/Player/pic1.jpg");
 
             return newPlayer;
         }

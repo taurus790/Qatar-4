@@ -17,12 +17,14 @@ namespace Engine.ViewModels
     {
         #region Private attributes
 
-        private World _CurrentWorld;
-        private int _WorldHoursPerSecond;
-        private TimeSpan _WorldElapsedTime;
-        private Player _CurrentPlayer;
-        private Station _CurrentStation;
-        private Transport _CurrentTrain;
+        private World _currentWorld;
+        private int _worldHoursPerSecond;
+        private TimeSpan _worldElapsedTime;
+        private bool _isPaused=false;
+
+        private Player _currentPlayer;
+        private Station _currentStation;
+        private Transport _currentTrain;
 
         private bool _addingNewStation;
 
@@ -32,62 +34,70 @@ namespace Engine.ViewModels
 
         public World CurrentWorld
         {
-            get { return _CurrentWorld; }
+            get { return _currentWorld; }
             set
             {
-                _CurrentWorld = value;
+                _currentWorld = value;
                 OnPropertyChanged(nameof(CurrentWorld));
             }
         }
 
-        public int WorldHoursperSecond
+        public int WorldHoursPerSecond
         {
-            get { return _WorldHoursPerSecond; }
+            get { return _worldHoursPerSecond; }
             set
             {
-                _WorldHoursPerSecond = value;
+                _worldHoursPerSecond = value;
                 // Converts real elapsed time to elapsed time in the game (division by 60 is due 60fps).
-                WorldElapsedTime = TimeSpan.FromSeconds(WorldHoursperSecond * 3600 / 60);
-                OnPropertyChanged(nameof(WorldHoursperSecond));
+                WorldElapsedTime = TimeSpan.FromSeconds(WorldHoursPerSecond * 3600 / 60);
+                OnPropertyChanged(nameof(WorldHoursPerSecond));
             }
         }
 
         public TimeSpan WorldElapsedTime
         {
-            get { return _WorldElapsedTime; }
+            get { return _worldElapsedTime; }
             set
             {
-                _WorldElapsedTime = value;
+                _worldElapsedTime = value;
                 OnPropertyChanged(nameof(WorldElapsedTime));
+            }
+        }
+
+        public bool IsPaused
+        {
+            get { return _isPaused; }
+            set { _isPaused = value;
+                OnPropertyChanged(nameof(IsPaused));
             }
         }
 
         public Player CurrentPlayer
         {
-            get { return _CurrentPlayer; }
+            get { return _currentPlayer; }
             set
             {
-                _CurrentPlayer = value;
+                _currentPlayer = value;
                 OnPropertyChanged(nameof(CurrentPlayer));
             }
         }
 
         public Station CurrentStation
         {
-            get { return _CurrentStation; }
+            get { return _currentStation; }
             set
             {
-                _CurrentStation = value;
+                _currentStation = value;
                 OnPropertyChanged(nameof(CurrentStation));
             }
         }
 
         public Transport CurrentTrain
         {
-            get { return _CurrentTrain; }
+            get { return _currentTrain; }
             set
             {
-                _CurrentTrain = value;
+                _currentTrain = value;
                 OnPropertyChanged(nameof(CurrentTrain));
             }
         }
@@ -102,6 +112,7 @@ namespace Engine.ViewModels
             }
         }
 
+
         #endregion
 
         #region Constructor
@@ -110,11 +121,11 @@ namespace Engine.ViewModels
         {
             CurrentPlayer = WorldFactory.CreatePlayer();
             CurrentWorld = WorldFactory.CreateWorld();
-            CurrentStation = CurrentWorld.StationWithID(1);
 
             // Every real second is equal to WorldHoursperSecond Hours in the game.
-            WorldHoursperSecond = 1;
+            WorldHoursPerSecond = 1;
 
+            //HACK delete
             AddingNewStation = true;
 
             CompositionTarget.Rendering += CompositionTarget_Rendering;
@@ -124,10 +135,18 @@ namespace Engine.ViewModels
 
         private void CompositionTarget_Rendering(object sender, EventArgs e)
         {
-            CurrentWorld.UpdateWorld(WorldElapsedTime);
+            if (!IsPaused)
+            {
+                CurrentWorld.UpdateWorld(WorldElapsedTime);
+            }
         }
 
         #region Recievers from MainWindow.xaml.cs
+
+        public void PausePlayClicked()
+        {
+            IsPaused = !IsPaused;
+        }
 
         public void MapClicked(double mouseX, double mouseY)
         {
@@ -137,18 +156,16 @@ namespace Engine.ViewModels
             }
         }
 
-        internal Station selectedStation = null;
-
         public void StationClicked(Station clickedStation)
         {
-            if (selectedStation == null)
+            if (CurrentStation == null)
             {
-                selectedStation = clickedStation;
+                CurrentStation = clickedStation;
             }
             else
             {
-                CurrentWorld.AddWay("k", 1, selectedStation, clickedStation);
-                selectedStation = null;
+                CurrentWorld.AddWay("k", 1, CurrentStation, clickedStation);
+                CurrentStation = null;
             }
         }
 

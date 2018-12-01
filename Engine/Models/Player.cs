@@ -12,8 +12,8 @@ namespace Engine.Models
     {
         #region Private attributes
 
-        private int _Money;
-        private string _ImageSrc;
+        private int _money;
+        private string _imageSource;
 
         #endregion
 
@@ -21,21 +21,21 @@ namespace Engine.Models
 
         public int Money
         {
-            get { return _Money; }
+            get { return _money; }
             set
             {
-                _Money = value;
+                _money = value;
                 OnPropertyChanged(nameof(Money));
             }
         }
 
-        public string ImageSrc
+        public string ImageSource
         {
-            get { return _ImageSrc; }
+            get { return _imageSource; }
             set
             {
-                _ImageSrc = value;
-                OnPropertyChanged(nameof(ImageSrc));
+                _imageSource = value;
+                OnPropertyChanged(nameof(ImageSource));
             }
         }
 
@@ -43,14 +43,14 @@ namespace Engine.Models
 
         #region Constructor
 
-        public Player(int money, string imageSrc, 
-            int id, string name, int level)
-            : base(id, name, level,0,0,0,0)
+        public Player(int id, string name, int level,
+            int money, string imageSource)
+            : base(id, name, level, 0, 0, 0, 0)
         {
-            Money = money;
-            ImageSrc = imageSrc;
+            // A player has no position, no width & height.
 
-            // A player has no position, no width&height.
+            Money = money;
+            ImageSource = imageSource;
         }
 
         #endregion

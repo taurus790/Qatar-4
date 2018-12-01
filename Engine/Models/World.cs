@@ -14,13 +14,13 @@ namespace Engine.Models
     {
         #region Private attributes
 
-        private ObservableCollection<Way> _Ways = new ObservableCollection<Way>();
-        private ObservableCollection<Station> _Stations = new ObservableCollection<Station>();
-        private ObservableCollection<Transport> _Transports = new ObservableCollection<Transport>();
+        private ObservableCollection<Way> _ways = new ObservableCollection<Way>();
+        private ObservableCollection<Station> _stations = new ObservableCollection<Station>();
+        private ObservableCollection<Transport> _transports = new ObservableCollection<Transport>();
 
-        private CompositeCollection _EntitiesOnMap = new CompositeCollection();
+        private CompositeCollection _entitiesOnMap = new CompositeCollection();
 
-        private DateTime _WorldTime;
+        private DateTime _worldTime;
 
         #endregion
 
@@ -28,50 +28,50 @@ namespace Engine.Models
 
         public CompositeCollection EntitiesOnMap
         {
-            get { return _EntitiesOnMap; }
+            get { return _entitiesOnMap; }
             set
             {
-                _EntitiesOnMap = value;
+                _entitiesOnMap = value;
                 OnPropertyChanged(nameof(EntitiesOnMap));
             }
         }
 
         public ObservableCollection<Way> Ways
         {
-            get { return _Ways; }
+            get { return _ways; }
             set
             {
-                _Ways = value;
+                _ways = value;
                 OnPropertyChanged(nameof(Ways));
             }
         }
 
         public ObservableCollection<Station> Stations
         {
-            get { return _Stations; }
+            get { return _stations; }
             set
             {
-                _Stations = value;
+                _stations = value;
                 OnPropertyChanged(nameof(Stations));
             }
         }
 
         public ObservableCollection<Transport> Transports
         {
-            get { return _Transports; }
+            get { return _transports; }
             set
             {
-                _Transports = value;
+                _transports = value;
                 OnPropertyChanged(nameof(Transports));
             }
         }
 
         public DateTime WorldTime
         {
-            get { return _WorldTime; }
+            get { return _worldTime; }
             set
             {
-                _WorldTime = value;
+                _worldTime = value;
                 OnPropertyChanged(nameof(WorldTime));
             }
         }
@@ -100,7 +100,7 @@ namespace Engine.Models
 
             Stations.Add(station);
 
-            // Add Route if Station selected. 
+            //HACK Delete this code from here. Add Route if Station selected. 
             if (Transports.Count > 0) Transports.ElementAt(0).Route.Add(station);
         }
 

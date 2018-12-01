@@ -12,44 +12,71 @@ namespace Engine.Models
     {
         #region Private attributes
 
-        private double _Vel;
-        private double _VelX;
-        private double _VelY;
+        private double _centerPosX;
+        private double _centerPosY;
 
-        private List<Station> _Route = new List<Station>();
-        private Station _Origin;
-        private Station _Destination;
+        private double _vel;
+        private double _velX;
+        private double _velY;
+
+        //TODO Delete this attribute afte Route class is created
+        private List<Station> _route = new List<Station>();
+
+        private Station _origin;
+        private Station _destination;
 
         #endregion
 
         #region Public properties
 
-        public double Vel
+        public double CenterPosX
         {
-            get { return _Vel; }
+            get { return _centerPosX; }
             set
             {
-                _Vel = value;
+                _centerPosX = value;
+                PosX = CenterPosX - Width / 2;
+                OnPropertyChanged(nameof(CenterPosX));
+            }
+        }
+
+        public double CenterPosY
+        {
+            get { return _centerPosY; }
+            set
+            {
+                _centerPosY = value;
+                PosY = CenterPosY - Height / 2;
+                OnPropertyChanged(nameof(CenterPosY));
+            }
+        }
+
+        public double Vel
+        {
+            get { return _vel; }
+            set
+            {
+                _vel = value;
                 OnPropertyChanged(nameof(Vel));
             }
         }
 
         public double VelX
         {
-            get { return _VelX; }
+            get { return _velX; }
             set
             {
-                _VelX = value;
+                _velX = value;
                 OnPropertyChanged(nameof(VelX));
             }
         }
 
         public double VelY
         {
-            get { return _VelY; }
+            get { return _velY; }
             set
             {
-                _VelY = value;
+                _velY = value;
                 OnPropertyChanged(nameof(VelY));
             }
         }
@@ -57,30 +84,30 @@ namespace Engine.Models
 
         public List<Station> Route
         {
-            get { return _Route; }
+            get { return _route; }
             set
             {
-                _Route = value;
+                _route = value;
                 OnPropertyChanged(nameof(Route));
             }
         }
 
         public Station Origin
         {
-            get { return _Origin; }
+            get { return _origin; }
             set
             {
-                _Origin = value;
+                _origin = value;
                 OnPropertyChanged(nameof(Origin));
             }
         }
 
         public Station Destination
         {
-            get { return _Destination; }
+            get { return _destination; }
             set
             {
-                _Destination = value;
+                _destination = value;
                 OnPropertyChanged(nameof(Destination));
             }
         }
@@ -93,6 +120,12 @@ namespace Engine.Models
             double vel)
             : base(id, name, level, posX, posY, width, height)
         {
+            // PosX & PosY by CenterPosX & CenterPosY
+
+
+            CenterPosX = posX;
+            CenterPosY = posY;
+
             Vel = vel;
         }
 
@@ -100,8 +133,8 @@ namespace Engine.Models
 
         internal void UpdateTransport(TimeSpan worldElapsedTime)
         {
-            PosX += VelX * worldElapsedTime.TotalSeconds / 3600;
-            PosY += VelY * worldElapsedTime.TotalSeconds / 3600;
+            CenterPosX += VelX * worldElapsedTime.TotalSeconds / 3600;
+            CenterPosY += VelY * worldElapsedTime.TotalSeconds / 3600;
 
             if (IsArrived())
             {
@@ -123,9 +156,13 @@ namespace Engine.Models
 
         internal bool IsArrived()
         {
-            if (Math.Abs(PosX - Destination.CenterPosX) < 2
-                && Math.Abs(PosY - Destination.CenterPosY) < 2)
+            if (Math.Abs(CenterPosX - Destination.CenterPosX) < 2
+                && Math.Abs(CenterPosY - Destination.CenterPosY) < 2)
+            {
+                CenterPosX = Destination.CenterPosX;
+                CenterPosY = Destination.CenterPosY;
                 return true;
+            }
 
             return false;
         }
@@ -143,6 +180,5 @@ namespace Engine.Models
                 return Route.ElementAt(0);
             }
         }
-
     }
 }
