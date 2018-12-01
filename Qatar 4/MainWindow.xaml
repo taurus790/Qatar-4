@@ -63,7 +63,7 @@
 
                 <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                        MaxWidth="60" MaxHeight="80"
-                           Source="{Binding CurrentPlayer.ImageSrc}"/>
+                           Source="{Binding CurrentPlayer.ImageSource}"/>
 
                 <Label Grid.Row="2" Grid.Column="0" 
                            Content="Name:"/>

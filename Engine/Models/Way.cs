@@ -12,8 +12,8 @@ namespace Engine.Models
     {
         #region Private attributes 
 
-        private Station _StartStation;
-        private Station _EndStation;
+        private Station _startStation;
+        private Station _endStation;
 
         #endregion
 
@@ -21,20 +21,20 @@ namespace Engine.Models
 
         public Station StartStation
         {
-            get { return _StartStation; }
+            get { return _startStation; }
             set
             {
-                _StartStation = value;
+                _startStation = value;
                 OnPropertyChanged(nameof(StartStation));
             }
         }
 
         public Station EndStation
         {
-            get { return _EndStation; }
+            get { return _endStation; }
             set
             {
-                _EndStation = value;
+                _endStation = value;
                 OnPropertyChanged(nameof(EndStation));
             }
         }
@@ -51,6 +51,10 @@ namespace Engine.Models
                   endStation.CenterPosX - startStation.CenterPosX,
                   endStation.CenterPosY - startStation.CenterPosY)
         {
+            // Width of a Way is the horizontal distance between its start and end. 
+            // Height of a Way is the vertical distance between its start and end. 
+
+
             StartStation = startStation;
             EndStation = endStation;
         }

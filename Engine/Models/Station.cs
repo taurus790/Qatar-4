@@ -12,8 +12,8 @@ namespace Engine.Models
     {
         #region Private attributes 
 
-        private double _CenterPosX;
-        private double _CenterPosY;
+        private double _centerPosX;
+        private double _centerPosY;
 
         #endregion
 
@@ -21,10 +21,10 @@ namespace Engine.Models
 
         public double CenterPosX
         {
-            get { return _CenterPosX; }
+            get { return _centerPosX; }
             set
             {
-                _CenterPosX = value;
+                _centerPosX = value;
                 PosX = CenterPosX - Width / 2;
                 OnPropertyChanged(nameof(CenterPosX));
             }
@@ -32,10 +32,10 @@ namespace Engine.Models
 
         public double CenterPosY
         {
-            get { return _CenterPosY; }
+            get { return _centerPosY; }
             set
             {
-                _CenterPosY = value;
+                _centerPosY = value;
                 PosY = CenterPosY - Height / 2;
                 OnPropertyChanged(nameof(CenterPosY));
             }
@@ -58,6 +58,10 @@ namespace Engine.Models
         public Station(int id, string name, int level, double posX, double posY)
             : base(id, name, level, posX, posY, 0, 0)
         {
+            // Width & Height of Stations is determined by Level
+            // PosX & PosY by CenterPosX & CenterPosY
+
+
             CenterPosX = posX;
             CenterPosY = posY;
         }

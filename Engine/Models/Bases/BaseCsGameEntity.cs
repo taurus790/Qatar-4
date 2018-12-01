@@ -11,15 +11,15 @@ namespace Engine.Models.Bases
 
         #region Private attributes
 
-        private int _ID;
-        private string _Name;
-        private int _Level;
+        private int _id;
+        private string _name;
+        private int _level;
 
-        private double _PosX;
-        private double _PosY;
+        private double _posX;
+        private double _posY;
 
-        private double _Width;
-        private double _Height;
+        private double _width;
+        private double _height;
 
         #endregion
 
@@ -27,70 +27,70 @@ namespace Engine.Models.Bases
 
         public int ID
         {
-            get { return _ID; }
+            get { return _id; }
             set
             {
-                _ID = value;
+                _id = value;
                 OnPropertyChanged(nameof(ID));
             }
         }
 
         public string Name
         {
-            get { return _Name; }
+            get { return _name; }
             set
             {
-                _Name = value;
+                _name = value;
                 OnPropertyChanged(nameof(Name));
             }
         }
 
         public int Level
         {
-            get { return _Level; }
+            get { return _level; }
             set
             {
-                _Level = value;
+                _level = value;
                 OnPropertyChanged(nameof(Level));
             }
         }
 
         public double PosX
         {
-            get { return _PosX; }
+            get { return _posX; }
             set
             {
-                _PosX = value;
+                _posX = value;
                 OnPropertyChanged(nameof(PosX));
             }
         }
 
         public double PosY
         {
-            get { return _PosY; }
+            get { return _posY; }
             set
             {
-                _PosY = value;
+                _posY = value;
                 OnPropertyChanged(nameof(PosY));
             }
         }
 
         public double Width
         {
-            get { return _Width; }
+            get { return _width; }
             set
             {
-                _Width = value;
+                _width = value;
                 OnPropertyChanged(nameof(Width));
             }
         }
 
         public double Height
         {
-            get { return _Height; }
+            get { return _height; }
             set
             {
-                _Height = value;
+                _height = value;
                 OnPropertyChanged(nameof(Height));
             }
         }
