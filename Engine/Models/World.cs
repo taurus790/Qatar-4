@@ -99,6 +99,9 @@ namespace Engine.Models
             Station station = new Station(Stations.Count, name, level, posX, posY);
 
             Stations.Add(station);
+
+            // Add Route if Station selected. 
+            if (Transports.Count > 0) Transports.ElementAt(0).Route.Add(station);
         }
 
         public void AddTransport(string name, int level, double posX, double posY, double width,

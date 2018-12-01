@@ -123,8 +123,8 @@ namespace Engine.Models
 
         internal bool IsArrived()
         {
-            if (Math.Abs(PosX - Destination.CenterPosX) < 1
-                && Math.Abs(PosY - Destination.CenterPosY) < 1)
+            if (Math.Abs(PosX - Destination.CenterPosX) < 2
+                && Math.Abs(PosY - Destination.CenterPosY) < 2)
                 return true;
 
             return false;

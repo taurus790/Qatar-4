@@ -15,7 +15,6 @@ namespace Engine.Factories
 
             newWorld.AddStation("28 May", 1, 100, 100);
             newWorld.AddStation("Gənclik", 1, 200, 100);
-            newWorld.AddStation("Nərimanov", 1, 150, 200);
 
             newWorld.AddTransport("A", 1,
                 newWorld.Stations.ElementAt(0).CenterPosX,
@@ -23,14 +22,11 @@ namespace Engine.Factories
                 10, 10, 60);
             newWorld.Transports.ElementAt(0).Route.Add(newWorld.Stations.ElementAt(0));
             newWorld.Transports.ElementAt(0).Route.Add(newWorld.Stations.ElementAt(1));
-            newWorld.Transports.ElementAt(0).Route.Add(newWorld.Stations.ElementAt(2));
             newWorld.Transports.ElementAt(0).Origin = newWorld.Stations.ElementAt(0);
             newWorld.Transports.ElementAt(0).Destination = newWorld.Stations.ElementAt(1);
             newWorld.Transports.ElementAt(0).CalculateVels();
 
             newWorld.AddWay("N.Tusi", 1, newWorld.Stations.ElementAt(0), newWorld.Stations.ElementAt(1));
-            newWorld.AddWay("N.Tusi", 1, newWorld.Stations.ElementAt(1), newWorld.Stations.ElementAt(2));
-            newWorld.AddWay("N.Tusi", 1, newWorld.Stations.ElementAt(2), newWorld.Stations.ElementAt(0));
 
             return newWorld;
         }
