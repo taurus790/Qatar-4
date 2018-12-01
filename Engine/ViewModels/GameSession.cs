@@ -22,7 +22,9 @@ namespace Engine.ViewModels
         private TimeSpan _WorldElapsedTime;
         private Player _CurrentPlayer;
         private Station _CurrentStation;
-        private Train _CurrentTrain;
+        private Transport _CurrentTrain;
+
+        private bool _addingNewStation;
 
         #endregion
 
@@ -44,7 +46,8 @@ namespace Engine.ViewModels
             set
             {
                 _WorldHoursPerSecond = value;
-                WorldElapsedTime = TimeSpan.FromSeconds(WorldHoursperSecond * 60 * 60 / 60);
+                // Converts real elapsed time to elapsed time in the game (division by 60 is due 60fps).
+                WorldElapsedTime = TimeSpan.FromSeconds(WorldHoursperSecond * 3600 / 60);
                 OnPropertyChanged(nameof(WorldHoursperSecond));
             }
         }
@@ -79,7 +82,7 @@ namespace Engine.ViewModels
             }
         }
 
-        public Train CurrentTrain
+        public Transport CurrentTrain
         {
             get { return _CurrentTrain; }
             set
@@ -89,20 +92,30 @@ namespace Engine.ViewModels
             }
         }
 
+        public bool AddingNewStation
+        {
+            get { return _addingNewStation; }
+            set
+            {
+                _addingNewStation = value;
+                OnPropertyChanged(nameof(AddingNewStation));
+            }
+        }
+
         #endregion
 
         #region Constructor
 
         public GameSession()
         {
-            WorldFactory factory = new WorldFactory();
-
-            CurrentPlayer = factory.CreatePlayer();
-            CurrentWorld = factory.CreateWorld();
+            CurrentPlayer = WorldFactory.CreatePlayer();
+            CurrentWorld = WorldFactory.CreateWorld();
             CurrentStation = CurrentWorld.StationWithID(1);
 
-            // Every real second is equal to WorldHoursperSecond Hours in the game (division by 60 is due 60fps)
-            WorldHoursperSecond = 2;
+            // Every real second is equal to WorldHoursperSecond Hours in the game.
+            WorldHoursperSecond = 1;
+
+            AddingNewStation = true;
 
             CompositionTarget.Rendering += CompositionTarget_Rendering;
         }
@@ -113,5 +126,32 @@ namespace Engine.ViewModels
         {
             CurrentWorld.UpdateWorld(WorldElapsedTime);
         }
+
+        #region Recievers from MainWindow.xaml.cs
+
+        public void MapClicked(double mouseX, double mouseY)
+        {
+            if (AddingNewStation)
+            {
+                CurrentWorld.AddStation("5", 1, mouseX, mouseY);
+            }
+        }
+
+        internal Station selectedStation = null;
+
+        public void StationClicked(Station clickedStation)
+        {
+            if (selectedStation == null)
+            {
+                selectedStation = clickedStation;
+            }
+            else
+            {
+                CurrentWorld.AddWay("k", 1, selectedStation, clickedStation);
+                selectedStation = null;
+            }
+        }
+
+        #endregion
     }
 }

@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 
 namespace Engine.Models
 {
@@ -13,15 +14,39 @@ namespace Engine.Models
     {
         #region Private attributes
 
-        private List<Station> _Stations = new List<Station>();
-        private ObservableCollection<Station> _EntitiesOnMap = new ObservableCollection<Station>();
+        private ObservableCollection<Way> _Ways = new ObservableCollection<Way>();
+        private ObservableCollection<Station> _Stations = new ObservableCollection<Station>();
+        private ObservableCollection<Transport> _Transports = new ObservableCollection<Transport>();
+
+        private CompositeCollection _EntitiesOnMap = new CompositeCollection();
+
         private DateTime _WorldTime;
 
         #endregion
 
         #region Public properties
 
-        public List<Station> Stations
+        public CompositeCollection EntitiesOnMap
+        {
+            get { return _EntitiesOnMap; }
+            set
+            {
+                _EntitiesOnMap = value;
+                OnPropertyChanged(nameof(EntitiesOnMap));
+            }
+        }
+
+        public ObservableCollection<Way> Ways
+        {
+            get { return _Ways; }
+            set
+            {
+                _Ways = value;
+                OnPropertyChanged(nameof(Ways));
+            }
+        }
+
+        public ObservableCollection<Station> Stations
         {
             get { return _Stations; }
             set
@@ -31,13 +56,13 @@ namespace Engine.Models
             }
         }
 
-        public ObservableCollection<Station> EntitiesOnMap
+        public ObservableCollection<Transport> Transports
         {
-            get { return _EntitiesOnMap; }
+            get { return _Transports; }
             set
             {
-                _EntitiesOnMap = value;
-                OnPropertyChanged(nameof(EntitiesOnMap));
+                _Transports = value;
+                OnPropertyChanged(nameof(Transports));
             }
         }
 
@@ -51,29 +76,47 @@ namespace Engine.Models
             }
         }
 
-
         #endregion
 
         #region Constructor
 
-        public World(int id, string name, double posX, double posY, int level)
-            : base(id, name, posX, posY, level)
+        public World(int id, string name, int level, int width, int height)
+            : base(id, name, level, 0, 0, width, height)
         {
-            // A World has no position. 
-            PosX = 0;
-            PosY = 0;
+            // A World has no position.
+
+            EntitiesOnMap.Add(new CollectionContainer() { Collection = Ways });
+            EntitiesOnMap.Add(new CollectionContainer() { Collection = Stations });
+            EntitiesOnMap.Add(new CollectionContainer() { Collection = Transports });
 
             WorldTime = new DateTime(1800, 1, 1, 0, 0, 0);
         }
 
         #endregion
 
-        internal void AddStation(int id, string name, int posX, int posY, int level)
+        public void AddStation(string name, int level, double posX, double posY)
         {
-            Station station = new Station(id, name, posX, posY, level);
+            Station station = new Station(Stations.Count, name, level, posX, posY);
 
             Stations.Add(station);
-            EntitiesOnMap.Add(station);
+
+            // Add Route if Station selected. 
+            if (Transports.Count > 0) Transports.ElementAt(0).Route.Add(station);
+        }
+
+        public void AddTransport(string name, int level, double posX, double posY, double width,
+            double height, double vel)
+        {
+            Transport transport = new Transport(Transports.Count, name, level, posX, posY, width, height, vel);
+
+            Transports.Add(transport);
+        }
+
+        public void AddWay(string name, int level, Station start, Station end)
+        {
+            Way way = new Way(Ways.Count, name, level, start, end);
+
+            Ways.Add(way);
         }
 
         public Station StationWithID(int id)
@@ -88,13 +131,13 @@ namespace Engine.Models
             return null;
         }
 
-        public void UpdateWorld(TimeSpan elapsed)
+        public void UpdateWorld(TimeSpan worldElapsedTime)
         {
-            WorldTime += elapsed;
+            WorldTime += worldElapsedTime;
 
-            foreach(Station station in EntitiesOnMap)
+            foreach (Transport transport in Transports)
             {
-                station.PosX += elapsed.TotalSeconds/60;
+                transport.UpdateTransport(worldElapsedTime);
             }
         }
     }

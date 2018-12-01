@@ -7,18 +7,8 @@
         mc:Ignorable="d"
         Title="The Game" 
         MinWidth="300" MinHeight="200"
-        SizeToContent="WidthAndHeight">
-
-    <!--Stlye for Ellipses i.e. Stations-->
-    <Window.Resources>
-        <Style TargetType="{x:Type TextBlock}">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-
-        <Style TargetType="{x:Type Label}">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-    </Window.Resources>
+        SizeToContent="WidthAndHeight"
+        xmlns:src="clr-namespace:Engine.Models;assembly=Engine" >
 
     <!--Main grid-->
     <Grid>
@@ -97,29 +87,50 @@
 
         <!--Map Canvas-->
         <Grid Grid.Row="1" Grid.Column="1"
-                    Background="Beige">
-            <Border BorderBrush="Gainsboro" BorderThickness="2">
+                    Background="#fff">
+            <Border HorizontalAlignment="Center" VerticalAlignment="Center"
+                BorderBrush="#bbb" BorderThickness="2">
                 <ItemsControl ItemsSource="{Binding CurrentWorld.EntitiesOnMap}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <Canvas/>
+                            <Canvas Width="{Binding CurrentWorld.Width}" Height="{Binding CurrentWorld.Height}"
+                                    MinWidth="50" MinHeight="50"
+                                    Background="#f9f9f9"
+                                    MouseLeftButtonDown="Canvas_MouseLeftButtonDown"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
-                    
+
                     <ItemsControl.ItemContainerStyle>
                         <Style>
                             <Setter Property="Canvas.Left" Value="{Binding PosX}"/>
                             <Setter Property="Canvas.Top" Value="{Binding PosY}"/>
                         </Style>
                     </ItemsControl.ItemContainerStyle>
-                    
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Ellipse Width="{Binding Level}" Height="{Binding Level}"
-                                     StrokeThickness="2" Stroke="Black" Fill="White">
+
+                    <ItemsControl.Resources>
+
+                        <DataTemplate DataType="{x:Type src:Station }">
+                            <Ellipse Width="{Binding Width}" Height="{Binding Height}"
+                                     StrokeThickness="2" Stroke="Black" Fill="White"
+                                     MouseLeftButtonDown="Ellipse_MouseLeftButtonDown">
                             </Ellipse>
                         </DataTemplate>
-                    </ItemsControl.ItemTemplate>
+
+                        <DataTemplate DataType="{x:Type src:Transport }">
+                            <Rectangle Width="{Binding Width}" Height="{Binding Height}"
+                                     StrokeThickness="2" Stroke="Red" Fill="White">
+                            </Rectangle>
+                        </DataTemplate>
+
+                        <DataTemplate DataType="{x:Type src:Way }">
+                            <Line X1="0" Y1="0"
+                                  X2="{Binding Width}" Y2="{Binding Height}"
+                                  StrokeThickness="{Binding Level}" Stroke="Black" 
+                                  StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                            </Line>
+                        </DataTemplate>
+
+                    </ItemsControl.Resources>
                 </ItemsControl>
             </Border>
         </Grid>
@@ -163,9 +174,9 @@
                 <Label Grid.Row="3" Grid.Column="0" Content="Position:"/>
                 <TextBlock Grid.Row="3" Grid.Column="1">
                     <TextBlock.Text>
-                        <MultiBinding StringFormat="{}{0}; {1}">
-                            <Binding Path="CurrentStation.PosX"/>
-                            <Binding Path="CurrentStation.PosY"/>
+                        <MultiBinding StringFormat="{}{0:#,#}; {1:#,#}">
+                            <Binding Path="CurrentStation.CenterPosX"/>
+                            <Binding Path="CurrentStation.CenterPosY"/>
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
@@ -184,15 +195,17 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">Tools</Label>
-                <Button Grid.Row="1" Grid.Column="1" Click="Button_Click">U</Button>
-                <Button Grid.Row="2" Grid.Column="0" Click="Button_Click_1">L</Button>
-                <Button Grid.Row="2" Grid.Column="2" Click="Button_Click_2">R</Button>
-                <Button Grid.Row="3" Grid.Column="1" Click="Button_Click_3">D</Button>
 
+                <Label Grid.Row="1" Grid.Column="0">New Station</Label>
+                <CheckBox Grid.Row="1" Grid.Column="1" 
+                          HorizontalAlignment="Center" VerticalAlignment="Center"
+                          IsChecked="{Binding AddingNewStation, 
+                                            Mode=TwoWay, 
+                                            FallbackValue=True}">
+                </CheckBox>
             </Grid>
         </Grid>
 

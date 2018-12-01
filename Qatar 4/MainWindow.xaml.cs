@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Engine.Models;
 using Engine.ViewModels;
 
 namespace Qatar_4
@@ -38,28 +39,18 @@ namespace Qatar_4
             };*/
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            _gameSession.CurrentPlayer.Money++;
-            _gameSession.CurrentStation.PosY -= 10;
+            if (Mouse.DirectlyOver != (Canvas)sender) return;
+
+            _gameSession.MapClicked(Mouse.GetPosition((Canvas)sender).X, Mouse.GetPosition((Canvas)sender).Y);
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            _gameSession.CurrentStation = _gameSession.CurrentWorld.StationWithID(_gameSession.CurrentStation.ID - 1);
-            _gameSession.CurrentStation.PosX -= 15;
-        }
+            if (Mouse.DirectlyOver != (Ellipse)sender) return;
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            _gameSession.CurrentStation = _gameSession.CurrentWorld.StationWithID(_gameSession.CurrentStation.ID + 1);
-            _gameSession.CurrentStation.PosX += 10;
-        }
-
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-            _gameSession.CurrentPlayer.Money--;
-            _gameSession.CurrentStation.PosY += 10;
+            _gameSession.StationClicked(((Ellipse)sender).DataContext as Station);
         }
     }
 }
