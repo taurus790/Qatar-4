@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Engine.Models;
 using Engine.ViewModels;
+using Qatar_4.DialogWindows;
 
 namespace Qatar_4
 {
@@ -27,9 +28,6 @@ namespace Qatar_4
         public MainWindow()
         {
             InitializeComponent();
-
-            _gameSession = new GameSession();
-            DataContext = _gameSession;
 
             //Sets Windows min size to its content
             /*SourceInitialized += (s, e) =>
@@ -57,5 +55,23 @@ namespace Qatar_4
         {
             _gameSession.PausePlayClicked();
         }
+
+        #region Menu
+
+        private void NewGame_Click(object sender, RoutedEventArgs e)
+        {
+            _gameSession = new GameSession();
+            DataContext = _gameSession;
+        }
+
+        private void NewPlayer_Click(object sender, RoutedEventArgs e)
+        {
+            PlayerWindow playerWindow = new PlayerWindow();
+            playerWindow.Owner = this;
+            playerWindow.DataContext = _gameSession;
+            playerWindow.ShowDialog();
+        }
+
+        #endregion
     }
 }

@@ -112,21 +112,20 @@ namespace Engine.ViewModels
             }
         }
 
-
         #endregion
 
         #region Constructor
 
         public GameSession()
         {
-            CurrentPlayer = WorldFactory.CreatePlayer();
-            CurrentWorld = WorldFactory.CreateWorld();
+            //CurrentPlayer = WorldFactory.CreatePlayer();
+            //CurrentWorld = WorldFactory.CreateWorld();
 
             // Every real second is equal to WorldHoursperSecond Hours in the game.
-            WorldHoursPerSecond = 1;
+            //WorldHoursPerSecond = 1;
 
             //HACK delete
-            AddingNewStation = true;
+            //AddingNewStation = true;
 
             CompositionTarget.Rendering += CompositionTarget_Rendering;
         }
@@ -135,14 +134,14 @@ namespace Engine.ViewModels
 
         private void CompositionTarget_Rendering(object sender, EventArgs e)
         {
-            if (!IsPaused)
+            if (CurrentWorld!=null && !IsPaused)
             {
                 CurrentWorld.UpdateWorld(WorldElapsedTime);
             }
         }
 
         #region Recievers from MainWindow.xaml.cs
-
+        
         public void PausePlayClicked()
         {
             IsPaused = !IsPaused;

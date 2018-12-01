@@ -13,6 +13,7 @@ namespace Engine.Factories
         {
             World newWorld = new World(1, "First World", 0, 800, 500);
 
+            /*
             newWorld.AddStation("28 May", 1, 100, 100);
             newWorld.AddStation("Gənclik", 1, 200, 100);
 
@@ -27,15 +28,18 @@ namespace Engine.Factories
             newWorld.Transports.ElementAt(0).CalculateVels();
 
             newWorld.AddWay("N.Tusi", 1, newWorld.Stations.ElementAt(0), newWorld.Stations.ElementAt(1));
+            */
 
             return newWorld;
         }
 
+        /*
         internal static Player CreatePlayer()
         {
-            Player newPlayer = new Player(0, "Taurus790", 0, 1000000, "/Engine;component/Images/Player/pic1.jpg");
+            Player newPlayer = new Player("Taurus790", 0, 1000000, "/Engine;component/Images/Player/pic1.jpg");
 
             return newPlayer;
         }
+        */
     }
 }

@@ -43,9 +43,9 @@ namespace Engine.Models
 
         #region Constructor
 
-        public Player(int id, string name, int level,
+        public Player(string name, int level,
             int money, string imageSource)
-            : base(id, name, level, 0, 0, 0, 0)
+            : base(0, name, level, 0, 0, 0, 0)
         {
             // A player has no position, no width & height.
 
