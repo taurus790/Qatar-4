@@ -23,11 +23,16 @@ namespace Qatar_4
     /// </summary>
     public partial class MainWindow : Window
     {
-        private GameSession _gameSession;
+        public GameSession _gameSession;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            // Create a Game
+            _gameSession = new GameSession();
+            DataContext = _gameSession;
+
 
             //Sets Windows min size to its content
             /*SourceInitialized += (s, e) =>
@@ -72,6 +77,13 @@ namespace Qatar_4
             playerWindow.ShowDialog();
         }
 
+        private void NewWorld_Click(object sender, RoutedEventArgs e)
+        {
+            WorldWindow worldWindow = new WorldWindow();
+            worldWindow.Owner = this;
+            worldWindow.DataContext = _gameSession;
+            worldWindow.ShowDialog();
+        }
         #endregion
     }
 }

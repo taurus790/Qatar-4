@@ -18,7 +18,7 @@ namespace Engine.ViewModels
         #region Private attributes
 
         private World _currentWorld;
-        private int _worldHoursPerSecond;
+        private int _timeScale;
         private TimeSpan _worldElapsedTime;
         private bool _isPaused=false;
 
@@ -42,15 +42,15 @@ namespace Engine.ViewModels
             }
         }
 
-        public int WorldHoursPerSecond
+        public int TimeScale
         {
-            get { return _worldHoursPerSecond; }
+            get { return _timeScale; }
             set
             {
-                _worldHoursPerSecond = value;
+                _timeScale = value;
                 // Converts real elapsed time to elapsed time in the game (division by 60 is due 60fps).
-                WorldElapsedTime = TimeSpan.FromSeconds(WorldHoursPerSecond * 3600 / 60);
-                OnPropertyChanged(nameof(WorldHoursPerSecond));
+                WorldElapsedTime = TimeSpan.FromSeconds(TimeScale * 3600 / 60);
+                OnPropertyChanged(nameof(TimeScale));
             }
         }
 
@@ -118,15 +118,16 @@ namespace Engine.ViewModels
 
         public GameSession()
         {
-            //CurrentPlayer = WorldFactory.CreatePlayer();
-            //CurrentWorld = WorldFactory.CreateWorld();
 
-            // Every real second is equal to WorldHoursperSecond Hours in the game.
-            //WorldHoursPerSecond = 1;
+            //HACK delete. Create a Player.
+            CurrentPlayer = WorldFactory.CreatePlayer();
 
-            //HACK delete
-            //AddingNewStation = true;
+            //HACK delete. Create a World.
+            CurrentWorld = WorldFactory.CreateWorld();
 
+            //HACK delete. Every real second is equal to WorldHoursperSecond Hours in the game.
+            TimeScale = 1;
+            
             CompositionTarget.Rendering += CompositionTarget_Rendering;
         }
 

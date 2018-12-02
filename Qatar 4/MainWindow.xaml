@@ -26,12 +26,15 @@
 
         <!--Menu bar-->
         <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
-            <MenuItem Header="Game"/>
+            <MenuItem Header="File"/>
             <MenuItem Header="New">
                 <MenuItem Name="NewGame" Click="NewGame_Click"
                           Header="Game"/>
                 <MenuItem Name="NewPlayer" Click="NewPlayer_Click"
                           Header="Player"/>
+                <MenuItem Name="NewWorld" Click="NewWorld_Click"
+                          Header="World"/>
+                
             </MenuItem>
             <MenuItem Header="View"/>
             <MenuItem Header="Help"/>
