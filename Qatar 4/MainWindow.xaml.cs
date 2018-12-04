@@ -46,7 +46,18 @@ namespace Qatar_4
         {
             if (Mouse.DirectlyOver != (Canvas)sender) return;
 
-            _gameSession.MapClicked(Mouse.GetPosition((Canvas)sender).X, Mouse.GetPosition((Canvas)sender).Y);
+            _gameSession.ClearSelecteds();
+
+            if (_gameSession.AddingNewStation)
+            {
+                StationWindow stationWindow = new StationWindow();
+                stationWindow.Owner = this;
+                stationWindow.DataContext = _gameSession;
+                stationWindow.MouseX = Mouse.GetPosition((Canvas)sender).X;
+                stationWindow.MouseY = Mouse.GetPosition((Canvas)sender).Y;
+                stationWindow.ShowDialog();
+            }
+
         }
 
         private void Ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

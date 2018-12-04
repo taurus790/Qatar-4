@@ -34,7 +34,7 @@
                           Header="Player"/>
                 <MenuItem Name="NewWorld" Click="NewWorld_Click"
                           Header="World"/>
-                
+
             </MenuItem>
             <MenuItem Header="View"/>
             <MenuItem Header="Help"/>
@@ -220,7 +220,15 @@
                           HorizontalAlignment="Center" VerticalAlignment="Center"
                           IsChecked="{Binding AddingNewStation, 
                                             Mode=TwoWay, 
-                                            FallbackValue=True}">
+                                            FallbackValue=False}">
+                </CheckBox>
+
+                <Label Grid.Row="3" Grid.Column="0">New Way</Label>
+                <CheckBox Grid.Row="3" Grid.Column="1" 
+                          HorizontalAlignment="Center" VerticalAlignment="Center"
+                          IsChecked="{Binding AddingNewWay, 
+                                            Mode=TwoWay, 
+                                            FallbackValue=False}">
                 </CheckBox>
             </Grid>
         </Grid>

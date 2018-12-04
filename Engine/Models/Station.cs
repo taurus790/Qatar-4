@@ -61,7 +61,6 @@ namespace Engine.Models
             // Width & Height of Stations is determined by Level
             // PosX & PosY by CenterPosX & CenterPosY
 
-
             CenterPosX = posX;
             CenterPosY = posY;
         }

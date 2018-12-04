@@ -20,13 +20,14 @@ namespace Engine.ViewModels
         private World _currentWorld;
         private int _timeScale;
         private TimeSpan _worldElapsedTime;
-        private bool _isPaused=false;
+        private bool _isPaused = false;
 
         private Player _currentPlayer;
         private Station _currentStation;
         private Transport _currentTrain;
 
-        private bool _addingNewStation;
+        private bool _addingNewStation = false;
+        private bool _addingNewWay = false;
 
         #endregion
 
@@ -67,7 +68,9 @@ namespace Engine.ViewModels
         public bool IsPaused
         {
             get { return _isPaused; }
-            set { _isPaused = value;
+            set
+            {
+                _isPaused = value;
                 OnPropertyChanged(nameof(IsPaused));
             }
         }
@@ -112,6 +115,17 @@ namespace Engine.ViewModels
             }
         }
 
+        public bool AddingNewWay
+        {
+            get { return _addingNewWay; }
+            set
+            {
+                _addingNewWay = value;
+                OnPropertyChanged(nameof(AddingNewWay));
+            }
+        }
+
+
         #endregion
 
         #region Constructor
@@ -127,7 +141,7 @@ namespace Engine.ViewModels
 
             //HACK delete. Every real second is equal to WorldHoursperSecond Hours in the game.
             TimeScale = 1;
-            
+
             CompositionTarget.Rendering += CompositionTarget_Rendering;
         }
 
@@ -135,25 +149,17 @@ namespace Engine.ViewModels
 
         private void CompositionTarget_Rendering(object sender, EventArgs e)
         {
-            if (CurrentWorld!=null && !IsPaused)
+            if (CurrentWorld != null && !IsPaused)
             {
                 CurrentWorld.UpdateWorld(WorldElapsedTime);
             }
         }
 
         #region Recievers from MainWindow.xaml.cs
-        
+
         public void PausePlayClicked()
         {
             IsPaused = !IsPaused;
-        }
-
-        public void MapClicked(double mouseX, double mouseY)
-        {
-            if (AddingNewStation)
-            {
-                CurrentWorld.AddStation("5", 1, mouseX, mouseY);
-            }
         }
 
         public void StationClicked(Station clickedStation)
@@ -167,6 +173,16 @@ namespace Engine.ViewModels
                 CurrentWorld.AddWay("k", 1, CurrentStation, clickedStation);
                 CurrentStation = null;
             }
+        }
+
+        #endregion
+
+        #region Helper methods
+
+        public void ClearSelecteds()
+        {
+            CurrentStation = null;
+            CurrentTrain = null;
         }
 
         #endregion
