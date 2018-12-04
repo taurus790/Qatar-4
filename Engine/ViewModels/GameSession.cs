@@ -147,6 +147,8 @@ namespace Engine.ViewModels
 
         #endregion
 
+        #region Renderer
+
         private void CompositionTarget_Rendering(object sender, EventArgs e)
         {
             if (CurrentWorld != null && !IsPaused)
@@ -155,26 +157,15 @@ namespace Engine.ViewModels
             }
         }
 
+        #endregion
+
         #region Recievers from MainWindow.xaml.cs
 
         public void PausePlayClicked()
         {
             IsPaused = !IsPaused;
         }
-
-        public void StationClicked(Station clickedStation)
-        {
-            if (CurrentStation == null)
-            {
-                CurrentStation = clickedStation;
-            }
-            else
-            {
-                CurrentWorld.AddWay("k", 1, CurrentStation, clickedStation);
-                CurrentStation = null;
-            }
-        }
-
+        
         #endregion
 
         #region Helper methods
@@ -183,6 +174,18 @@ namespace Engine.ViewModels
         {
             CurrentStation = null;
             CurrentTrain = null;
+        }
+
+        public bool AreConnected(Station st1, Station st2)
+        {
+            foreach (Way way in CurrentWorld.Ways)
+            {
+                if ((way.StartStation == st1 && way.EndStation == st2) || (way.StartStation == st2 && way.EndStation == st1))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         #endregion

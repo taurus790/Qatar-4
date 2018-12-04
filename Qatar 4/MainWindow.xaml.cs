@@ -23,7 +23,13 @@ namespace Qatar_4
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region Public properties 
+
         public GameSession _gameSession;
+
+        #endregion
+
+        #region Constructor 
 
         public MainWindow()
         {
@@ -42,6 +48,10 @@ namespace Qatar_4
             };*/
         }
 
+        #endregion
+
+        #region UI input 
+
         private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (Mouse.DirectlyOver != (Canvas)sender) return;
@@ -57,20 +67,44 @@ namespace Qatar_4
                 stationWindow.MouseY = Mouse.GetPosition((Canvas)sender).Y;
                 stationWindow.ShowDialog();
             }
-
         }
 
         private void Ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (Mouse.DirectlyOver != (Ellipse)sender) return;
 
-            _gameSession.StationClicked(((Ellipse)sender).DataContext as Station);
+            Station clickedStation = ((Ellipse)sender).DataContext as Station;
+
+            if (_gameSession.CurrentStation == null)
+            {
+                _gameSession.ClearSelecteds();
+                _gameSession.CurrentStation = clickedStation;
+            }
+            else if (_gameSession.AddingNewWay && 
+                _gameSession.CurrentStation != clickedStation && 
+                !_gameSession.AreConnected(_gameSession.CurrentStation, clickedStation))
+            {
+
+                WayWindow wayWindow = new WayWindow();
+                wayWindow.Owner = this;
+                wayWindow.DataContext = _gameSession;
+                wayWindow.clickedStation = clickedStation;
+                wayWindow.ShowDialog();
+
+                _gameSession.CurrentStation = clickedStation;
+            }
+            else
+            {
+                _gameSession.CurrentStation = clickedStation;
+            }
         }
 
         private void PausePlay_Click(object sender, RoutedEventArgs e)
         {
             _gameSession.PausePlayClicked();
         }
+
+        #endregion
 
         #region Menu
 
@@ -95,6 +129,7 @@ namespace Qatar_4
             worldWindow.DataContext = _gameSession;
             worldWindow.ShowDialog();
         }
+        
         #endregion
     }
 }

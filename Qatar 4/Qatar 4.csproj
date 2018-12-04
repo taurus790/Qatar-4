@@ -63,6 +63,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="DialogWindows\WayWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DialogWindows\WorldWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -80,6 +84,9 @@
     </Compile>
     <Compile Include="DialogWindows\StationWindow.xaml.cs">
       <DependentUpon>StationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DialogWindows\WayWindow.xaml.cs">
+      <DependentUpon>WayWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="DialogWindows\WorldWindow.xaml.cs">
       <DependentUpon>WorldWindow.xaml</DependentUpon>
