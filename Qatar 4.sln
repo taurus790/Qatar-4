@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.102
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qatar 4", "Qatar 4\Qatar 4.csproj", "{B52AC672-F9C2-409E-876E-75108C2C27F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qatar_4", "Qatar 4\Qatar_4.csproj", "{B52AC672-F9C2-409E-876E-75108C2C27F3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csproj", "{D6EFD834-2251-4A56-BFDD-F21DE84165DC}"
 EndProject
