@@ -177,7 +177,8 @@ namespace Engine.Models
             }
             else
             {
-                return Route.ElementAt(0);
+                Route.Reverse();
+                return Route.ElementAt(1);
             }
         }
     }
